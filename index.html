@@ -68,9 +68,144 @@
     h3 { font-size: 1.05rem; font-weight: 600; color: var(--text); }
 
     /* ── Nav ── */
-    nav {
+    /* ── Injury Banner ── */
+    #injury-banner {
       position: sticky;
       top: 0;
+      z-index: 300;
+      background: #1a1a1a;
+      border-top: 3px solid #cc0000;
+      font-size: 12px;
+    }
+    .inj-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 8px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .inj-label {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .inj-label-text {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #cc0000;
+      white-space: nowrap;
+    }
+    .inj-label-icon { font-size: 14px; line-height: 1; margin-bottom: 2px; }
+    .inj-body { flex: 1; min-width: 0; }
+    .inj-pills-wrap { display: flex; flex-direction: column; gap: 5px; }
+    .inj-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .inj-pills-row::-webkit-scrollbar { display: none; }
+    .inj-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+      white-space: nowrap;
+      cursor: default;
+      flex-shrink: 0;
+    }
+    .inj-pill-sep { opacity: .5; margin: 0 4px; font-weight: 400; }
+    .inj-red    { background: rgba(204,0,0,.18); border: 1px solid rgba(204,0,0,.55); color: #ff7070; }
+    .inj-yellow { background: rgba(220,170,20,.18); border: 1px solid rgba(220,170,20,.55); color: #ffd060; }
+    .inj-green  { background: rgba(50,185,80,.15); border: 1px solid rgba(50,185,80,.5); color: #68d97a; }
+    .inj-impact {
+      margin-top: 6px;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #b8860b;
+      line-height: 1.5;
+    }
+    .inj-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .inj-timestamp {
+      font-size: 10px;
+      color: #666;
+      white-space: nowrap;
+    }
+    .inj-dismiss {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15);
+      color: #aaa;
+      border-radius: 4px;
+      width: 24px; height: 24px;
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background .15s;
+    }
+    .inj-dismiss:hover { background: rgba(255,255,255,.15); color: #fff; }
+    /* mobile show-all toggle */
+    .inj-toggle-btn {
+      background: none;
+      border: 1px solid rgba(255,255,255,.2);
+      color: #999;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+    .inj-toggle-btn:hover { color: #ccc; }
+    /* FAB */
+    #inj-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 290;
+      background: #1a1a1a;
+      border: 2px solid #cc0000;
+      color: #ff7070;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,.6);
+      display: none;
+      align-items: center;
+      gap: 6px;
+      transition: background .15s;
+    }
+    #inj-fab:hover { background: #2a1a1a; }
+    @media (max-width: 768px) {
+      .inj-inner { flex-wrap: wrap; gap: 8px; padding: 8px 12px; }
+      .inj-meta { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; order: -1; }
+      .inj-label { display: none; }
+      .inj-timestamp { font-size: 9.5px; }
+      .inj-impact { font-size: 10px; }
+    }
+
+    nav {
+      position: sticky;
+      top: var(--banner-h, 0px);
       z-index: 100;
       background: rgba(13,17,23,.92);
       backdrop-filter: blur(8px);
@@ -523,6 +658,36 @@
     /* show fallback if image fails */
     img.chart-img { width: 100%; }
 
+    /* ── BartTorvik section ── */
+    .torvik-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 4px;
+    }
+    .torvik-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      border-left-width: 3px;
+    }
+    .torvik-card p { font-size: .83rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
+    .torvik-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .torvik-icon { font-size: 1.2rem; flex-shrink: 0; line-height: 1.4; }
+    .torvik-title { font-size: .88rem; font-weight: 600; color: var(--text); line-height: 1.4; }
+    .torvik-gold  { border-left-color: var(--gold); }
+    .torvik-red   { border-left-color: var(--red); }
+    .torvik-orange{ border-left-color: var(--orange); }
+    .torvik-blue  { border-left-color: var(--blue); }
+    .torvik-purple{ border-left-color: #a371f7; }
+    .torvik-green { border-left-color: var(--green); }
+
     /* ── Lightbox ── */
     .chart-img-wrap {
       position: relative;
@@ -701,9 +866,205 @@
       .champion-callout { flex-direction: column; gap: 10px; align-items: flex-start; }
       .tracker-banner { flex-direction: column; align-items: flex-start; }
     }
+
+    /* ── Bracket ── */
+    .bracket-scroll { overflow-x: auto; padding: 0 0 16px; }
+    .bracket-wrap {
+      display: flex;
+      align-items: flex-start;
+      min-width: 1380px;
+      gap: 3px;
+    }
+    .br-rounds-left, .br-rounds-right { display: flex; gap: 3px; }
+    .br-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      height: 1100px;
+      flex-shrink: 0;
+    }
+    .br-col-r64 { width: 128px; }
+    .br-col-r32 { width: 122px; }
+    .br-col-s16 { width: 122px; }
+    .br-col-e8  { width: 122px; }
+    .br-game { border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+    .br-team {
+      padding: 4px 6px;
+      font-size: 11px;
+      line-height: 1.35;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .br-team:first-child { border-bottom: 1px solid rgba(0,0,0,.25); }
+    .br-team.winner { font-weight: 700; color: #f5c842; }
+    .br-team.loser  { text-decoration: line-through; color: #4a5568; }
+    .br-game-r64 .br-team { background: #1e3a5f; }
+    .br-game-r32 .br-team { background: #1a4a7a; }
+    .br-game-s16 .br-team { background: rgba(193,127,36,.22); border-left: 2px solid #c17f24; }
+    .br-game-e8  .br-team { background: rgba(139,26,26,.28); border-left: 2px solid #8b1a1a; }
+    .br-upset {
+      font-size: 8px; font-weight: 800;
+      background: #c53030; color: #fff;
+      border-radius: 2px; padding: 1px 3px;
+      margin-left: 3px; vertical-align: middle;
+      letter-spacing: .03em;
+    }
+    /* column headers */
+    .br-cols-wrap { display: flex; gap: 3px; margin-bottom: 6px; }
+    .br-col-hdr {
+      font-size: 9px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--text-dim);
+      text-align: center; flex-shrink: 0;
+    }
+    .br-col-hdr-r64  { width: 128px; }
+    .br-col-hdr-r32  { width: 122px; }
+    .br-col-hdr-s16  { width: 122px; }
+    .br-col-hdr-e8   { width: 122px; }
+    .br-col-hdr-ctr  { width: 180px; }
+    /* center column */
+    .br-center { position: relative; height: 1100px; width: 180px; flex-shrink: 0; }
+    .br-ff-game {
+      position: absolute; left: 0; right: 0;
+      background: rgba(74,26,139,.2);
+      border: 1px solid rgba(148,103,189,.45);
+      border-radius: 6px; overflow: hidden;
+    }
+    .br-ff-team { padding: 5px 9px; font-size: 11.5px; font-weight: 600; }
+    .br-ff-team.winner { color: #f5c842; }
+    .br-ff-team.loser  { color: #4a5568; text-decoration: line-through; }
+    .br-ff-team:first-child { border-bottom: 1px solid rgba(148,103,189,.3); }
+    .br-ff-label {
+      font-size: 8.5px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: rgba(148,103,189,.9);
+      text-align: center; padding: 3px 0 0;
+    }
+    .br-champion-box {
+      position: absolute; left: 4px; right: 4px;
+      background: rgba(184,134,11,.14);
+      border: 2px solid #b8860b;
+      border-radius: 10px; text-align: center;
+      padding: 14px 10px 12px;
+    }
+    .br-champion-trophy  { font-size: 1.8rem; display: block; line-height: 1; }
+    .br-champion-lbl     { font-size: 8px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #b8860b; margin-top: 6px; }
+    .br-champion-name    { font-size: 1.05rem; font-weight: 700; color: #f5c842; margin-top: 3px; }
+    .br-champion-seed    { font-size: .72rem; color: var(--text-muted); margin-top: 2px; }
+    /* region labels */
+    .br-region-labels {
+      display: flex; flex-direction: column;
+      justify-content: space-evenly;
+      height: 1100px; width: 56px;
+      flex-shrink: 0; gap: 0;
+    }
+    .br-rlbl {
+      font-size: 9px; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; writing-mode: vertical-rl;
+      text-orientation: mixed; transform: rotate(180deg);
+      color: var(--blue); opacity: .7;
+      text-align: center;
+    }
+    /* legend */
+    .br-legend {
+      display: flex; flex-wrap: wrap; gap: 14px;
+      margin-bottom: 22px; font-size: .77rem;
+    }
+    .br-legend-item { display: flex; align-items: center; gap: 6px; color: var(--text-muted); }
+    .br-legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+    /* ── Team Profiles ── */
+    .profiles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 8px;
+    }
+    .profile-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px 16px;
+    }
+    .profile-card.profile-ff     { border-left-color: #b8860b; }
+    .profile-card.profile-s16    { border-left-color: var(--blue); }
+    .profile-card.profile-other  { border-left-color: var(--border); }
+    .profile-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 6px; }
+    .profile-team-name { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .profile-meta { font-size: .76rem; color: var(--text-muted); margin-top: 1px; }
+    .profile-badges { display: flex; gap: 6px; flex-wrap: wrap; align-items: flex-start; }
+    .profile-badge {
+      font-size: .7rem; font-weight: 700; padding: 2px 8px;
+      border-radius: 10px; white-space: nowrap;
+    }
+    .pb-trank  { background: rgba(88,166,255,.12); color: var(--blue);   border: 1px solid rgba(88,166,255,.3); }
+    .pb-kenpom { background: rgba(63,185,80,.1);  color: var(--green);  border: 1px solid rgba(63,185,80,.3); }
+    .profile-body { font-size: .81rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 10px; }
+    .profile-ceiling {
+      font-size: .76rem; font-weight: 600;
+      color: var(--text-dim); border-top: 1px solid var(--border);
+      padding-top: 8px; margin-top: 4px;
+    }
+    .profile-ceiling span { color: var(--orange); }
+    @media (max-width: 700px) {
+      .profiles-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
+</head>
 <body>
+
+<!-- ══════════════════════════ INJURY BANNER ══════════════════════════ -->
+<div id="injury-banner" role="alert" aria-live="polite">
+  <div class="inj-inner">
+
+    <div class="inj-label">
+      <span class="inj-label-icon">⚠</span>
+      <span class="inj-label-text">Injury Alert</span>
+    </div>
+
+    <div class="inj-body">
+      <div class="inj-pills-wrap">
+
+        <!-- Row 1: OUT — confirmed -->
+        <div class="inj-pills-row" id="inj-row-red">
+          <span class="inj-pill inj-red">Caleb Foster <span class="inj-pill-sep">·</span> Duke <span class="inj-pill-sep">·</span> Fractured foot <span class="inj-pill-sep">·</span> OUT season</span>
+          <span class="inj-pill inj-red">Aden Holloway <span class="inj-pill-sep">·</span> Alabama <span class="inj-pill-sep">·</span> Suspended <span class="inj-pill-sep">·</span> OUT</span>
+          <span class="inj-pill inj-red">JT Toppin <span class="inj-pill-sep">·</span> Texas Tech <span class="inj-pill-sep">·</span> Torn ACL <span class="inj-pill-sep">·</span> OUT season</span>
+          <span class="inj-pill inj-red">Richie Saunders <span class="inj-pill-sep">·</span> BYU <span class="inj-pill-sep">·</span> Torn ACL <span class="inj-pill-sep">·</span> OUT season</span>
+          <span class="inj-pill inj-red">Caleb Wilson <span class="inj-pill-sep">·</span> UNC <span class="inj-pill-sep">·</span> Broken thumb <span class="inj-pill-sep">·</span> OUT season</span>
+          <span class="inj-pill inj-red">Carter Welling <span class="inj-pill-sep">·</span> Clemson <span class="inj-pill-sep">·</span> Torn ACL <span class="inj-pill-sep">·</span> OUT season</span>
+          <button class="inj-toggle-btn" id="inj-show-all">show questionable &amp; expected ▾</button>
+        </div>
+
+        <!-- Row 2: QUESTIONABLE -->
+        <div class="inj-pills-row inj-extra-row" id="inj-row-yellow">
+          <span class="inj-pill inj-yellow">Patrick Ngongba <span class="inj-pill-sep">·</span> Duke <span class="inj-pill-sep">·</span> Foot soreness <span class="inj-pill-sep">·</span> QUESTIONABLE</span>
+          <span class="inj-pill inj-yellow">Braden Huff <span class="inj-pill-sep">·</span> Gonzaga <span class="inj-pill-sep">·</span> Kneecap dislocation <span class="inj-pill-sep">·</span> OUT rounds 1–2</span>
+          <span class="inj-pill inj-yellow">Mikel Brown <span class="inj-pill-sep">·</span> Louisville <span class="inj-pill-sep">·</span> Back injury <span class="inj-pill-sep">·</span> QUESTIONABLE</span>
+          <span class="inj-pill inj-yellow">Nolan Winter <span class="inj-pill-sep">·</span> Wisconsin <span class="inj-pill-sep">·</span> Ankle sprain <span class="inj-pill-sep">·</span> QUESTIONABLE</span>
+          <span class="inj-pill inj-yellow">Jaylin Stewart <span class="inj-pill-sep">·</span> UConn <span class="inj-pill-sep">·</span> Knee <span class="inj-pill-sep">·</span> QUESTIONABLE</span>
+        </div>
+
+        <!-- Row 3: EXPECTED TO PLAY -->
+        <div class="inj-pills-row inj-extra-row" id="inj-row-green">
+          <span class="inj-pill inj-green">Tyler Bilodeau <span class="inj-pill-sep">·</span> UCLA <span class="inj-pill-sep">·</span> Knee strain <span class="inj-pill-sep">·</span> EXPECTED</span>
+          <span class="inj-pill inj-green">Silas Demary <span class="inj-pill-sep">·</span> UConn <span class="inj-pill-sep">·</span> Ankle <span class="inj-pill-sep">·</span> EXPECTED</span>
+        </div>
+
+      </div>
+      <div class="inj-impact">
+        Key bracket impact: Duke (−Foster) faces Kansas in Sweet 16 &nbsp;·&nbsp; Alabama (−Holloway) faces Michigan in Sweet 16 &nbsp;·&nbsp; Gonzaga (−Huff) faces BYU in Round of 32
+      </div>
+    </div>
+
+    <div class="inj-meta">
+      <div class="inj-timestamp">Last updated: March 17, 2026 — First Four begins today</div>
+      <button class="inj-dismiss" id="inj-dismiss" aria-label="Dismiss injury alert">×</button>
+    </div>
+
+  </div>
+</div>
 
 <!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
 <nav>
@@ -712,7 +1073,10 @@
       March Madness &nbsp;<span>2026</span>
     </div>
     <ul class="nav-links">
+      <li><a href="#bracket">Bracket</a></li>
       <li><a href="#methodology">Methodology</a></li>
+      <li><a href="#torvik">T-Rank</a></li>
+      <li><a href="#profiles">Profiles</a></li>
       <li><a href="#final-four">Final Four</a></li>
       <li><a href="#upsets">Upsets</a></li>
       <li><a href="#roster">Roster</a></li>
@@ -766,6 +1130,177 @@
         <span class="hero-stat-lbl">Expected pool percentile</span>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ BRACKET ═════════════════════════════ -->
+<section id="bracket">
+  <div class="container">
+    <div class="section-label">Full Bracket</div>
+    <h2>2026 NCAA Tournament Bracket</h2>
+
+    <div class="br-legend">
+      <div class="br-legend-item"><div class="br-legend-dot" style="background:#1e3a5f"></div>First Round</div>
+      <div class="br-legend-item"><div class="br-legend-dot" style="background:#1a4a7a"></div>Round of 32</div>
+      <div class="br-legend-item"><div class="br-legend-dot" style="background:#c17f24"></div>Sweet 16</div>
+      <div class="br-legend-item"><div class="br-legend-dot" style="background:#8b1a1a"></div>Elite Eight</div>
+      <div class="br-legend-item"><div class="br-legend-dot" style="background:#4a1a8b"></div>Final Four</div>
+      <div class="br-legend-item"><div class="br-legend-dot" style="background:#b8860b"></div>Champion</div>
+      <div class="br-legend-item"><span class="br-upset" style="font-size:10px;padding:2px 5px">UPSET</span>&nbsp;Lower seed won</div>
+    </div>
+
+    <div class="bracket-scroll">
+      <!-- column headers -->
+      <div class="br-cols-wrap" style="margin-left:59px">
+        <div class="br-col-hdr br-col-hdr-r64">R64</div>
+        <div class="br-col-hdr br-col-hdr-r32">R32</div>
+        <div class="br-col-hdr br-col-hdr-s16">Sweet 16</div>
+        <div class="br-col-hdr br-col-hdr-e8">Elite 8</div>
+        <div class="br-col-hdr br-col-hdr-ctr" style="color:var(--gold)">Final Four / Champion</div>
+        <div class="br-col-hdr br-col-hdr-e8">Elite 8</div>
+        <div class="br-col-hdr br-col-hdr-s16">Sweet 16</div>
+        <div class="br-col-hdr br-col-hdr-r32">R32</div>
+        <div class="br-col-hdr br-col-hdr-r64">R64</div>
+      </div>
+
+      <div class="bracket-wrap">
+
+        <!-- ── REGION LABELS LEFT ── -->
+        <div class="br-region-labels">
+          <div class="br-rlbl">East</div>
+          <div class="br-rlbl">West</div>
+        </div>
+
+        <!-- ── LEFT ROUNDS ── -->
+        <div class="br-rounds-left">
+
+          <!-- R64 LEFT -->
+          <div class="br-col br-col-r64">
+            <div class="br-game br-game-r64"><div class="br-team winner">1 Duke</div><div class="br-team loser">16 Siena</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">8 Ohio St</div><div class="br-team loser">9 TCU</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">5 St. John's</div><div class="br-team loser">12 N Iowa</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">4 Kansas</div><div class="br-team loser">13 Cal Bap.</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">6 Louisville</div><div class="br-team loser">11 S Florida</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">3 Mich St</div><div class="br-team loser">14 NDSU</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">7 UCLA</div><div class="br-team loser">10 UCF</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">2 UConn</div><div class="br-team loser">15 Furman</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">1 Arizona</div><div class="br-team loser">16 L. Island</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">9 Utah St <span class="br-upset">UP</span></div><div class="br-team loser">8 Villanova</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">5 Wisconsin</div><div class="br-team loser">12 High Pt</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">4 Arkansas</div><div class="br-team loser">13 Hawaii</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">6 BYU</div><div class="br-team loser">11 NC State</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">3 Gonzaga</div><div class="br-team loser">14 Ken. St</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">10 Missouri <span class="br-upset">UP</span></div><div class="br-team loser">7 Miami FL</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">2 Purdue</div><div class="br-team loser">15 Queens</div></div>
+          </div>
+
+          <!-- R32 LEFT -->
+          <div class="br-col br-col-r32">
+            <div class="br-game br-game-r32"><div class="br-team winner">1 Duke</div><div class="br-team loser">8 Ohio St</div></div>
+            <div class="br-game br-game-r32"><div class="br-team winner">4 Kansas</div><div class="br-team loser">5 St. John's</div></div>
+            <div class="br-game br-game-r32"><div class="br-team winner">3 Mich St</div><div class="br-team loser">6 Louisville</div></div>
+            <div class="br-game br-game-r32"><div class="br-team winner">2 UConn</div><div class="br-team loser">7 UCLA</div></div>
+            <div class="br-game br-game-r32"><div class="br-team winner">1 Arizona</div><div class="br-team loser">9 Utah St</div></div>
+            <div class="br-game br-game-r32"><div class="br-team winner">4 Arkansas</div><div class="br-team loser">5 Wisconsin</div></div>
+            <div class="br-game br-game-r32"><div class="br-team winner">6 BYU <span class="br-upset">UP</span></div><div class="br-team loser">3 Gonzaga</div></div>
+            <div class="br-game br-game-r32"><div class="br-team winner">2 Purdue</div><div class="br-team loser">10 Missouri</div></div>
+          </div>
+
+          <!-- S16 LEFT -->
+          <div class="br-col br-col-s16">
+            <div class="br-game br-game-s16"><div class="br-team winner">4 Kansas <span class="br-upset">UP</span></div><div class="br-team loser">1 Duke</div></div>
+            <div class="br-game br-game-s16"><div class="br-team winner">2 UConn</div><div class="br-team loser">3 Mich St</div></div>
+            <div class="br-game br-game-s16"><div class="br-team winner">1 Arizona</div><div class="br-team loser">4 Arkansas</div></div>
+            <div class="br-game br-game-s16"><div class="br-team winner">2 Purdue</div><div class="br-team loser">6 BYU</div></div>
+          </div>
+
+          <!-- E8 LEFT -->
+          <div class="br-col br-col-e8">
+            <div class="br-game br-game-e8"><div class="br-team winner">2 UConn</div><div class="br-team loser">4 Kansas</div></div>
+            <div class="br-game br-game-e8"><div class="br-team winner">1 Arizona</div><div class="br-team loser">2 Purdue</div></div>
+          </div>
+
+        </div><!-- /br-rounds-left -->
+
+        <!-- ── CENTER ── -->
+        <div class="br-center">
+          <div class="br-ff-label" style="position:absolute;top:230px;left:0;right:0">Semifinal</div>
+          <div class="br-ff-game" style="top:247px">
+            <div class="br-ff-team winner">2 UConn</div>
+            <div class="br-ff-team loser">2 Houston</div>
+          </div>
+          <div class="br-champion-box" style="top:500px">
+            <span class="br-champion-trophy">🏆</span>
+            <div class="br-champion-lbl">Champion</div>
+            <div class="br-champion-name">Arizona</div>
+            <div class="br-champion-seed">1-Seed · West</div>
+          </div>
+          <div class="br-ff-label" style="position:absolute;top:786px;left:0;right:0">Semifinal</div>
+          <div class="br-ff-game" style="top:800px">
+            <div class="br-ff-team winner">1 Arizona</div>
+            <div class="br-ff-team loser">1 Michigan</div>
+          </div>
+        </div>
+
+        <!-- ── RIGHT ROUNDS (E8 → R64) ── -->
+        <div class="br-rounds-right">
+
+          <!-- E8 RIGHT -->
+          <div class="br-col br-col-e8">
+            <div class="br-game br-game-e8"><div class="br-team winner">2 Houston <span class="br-upset">UP</span></div><div class="br-team loser">1 Florida</div></div>
+            <div class="br-game br-game-e8"><div class="br-team winner">1 Michigan</div><div class="br-team loser">2 Iowa St</div></div>
+          </div>
+
+          <!-- S16 RIGHT -->
+          <div class="br-col br-col-s16">
+            <div class="br-game br-game-s16"><div class="br-team winner">1 Florida</div><div class="br-team loser">4 Nebraska</div></div>
+            <div class="br-game br-game-s16"><div class="br-team winner">2 Houston</div><div class="br-team loser">3 Illinois</div></div>
+            <div class="br-game br-game-s16"><div class="br-team winner">1 Michigan</div><div class="br-team loser">4 Alabama</div></div>
+            <div class="br-game br-game-s16"><div class="br-team winner">2 Iowa St</div><div class="br-team loser">3 Virginia</div></div>
+          </div>
+
+          <!-- R32 RIGHT -->
+          <div class="br-col br-col-r32">
+            <div class="br-game br-game-r32"><div class="br-team winner">1 Florida</div><div class="br-team loser">9 Iowa</div></div>
+            <div class="br-game br-game-r32"><div class="br-team winner">4 Nebraska</div><div class="br-team loser">5 Vanderbilt</div></div>
+            <div class="br-game br-game-r32"><div class="br-team winner">3 Illinois</div><div class="br-team loser">6 UNC</div></div>
+            <div class="br-game br-game-r32"><div class="br-team winner">2 Houston</div><div class="br-team loser">10 Tex A&amp;M</div></div>
+            <div class="br-game br-game-r32"><div class="br-team winner">1 Michigan</div><div class="br-team loser">8 Georgia</div></div>
+            <div class="br-game br-game-r32"><div class="br-team winner">4 Alabama</div><div class="br-team loser">5 Texas Tech</div></div>
+            <div class="br-game br-game-r32"><div class="br-team winner">3 Virginia</div><div class="br-team loser">6 Tennessee</div></div>
+            <div class="br-game br-game-r32"><div class="br-team winner">2 Iowa St</div><div class="br-team loser">7 Kentucky</div></div>
+          </div>
+
+          <!-- R64 RIGHT -->
+          <div class="br-col br-col-r64">
+            <div class="br-game br-game-r64"><div class="br-team winner">1 Florida</div><div class="br-team loser">16 Leh/PV</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">9 Iowa <span class="br-upset">UP</span></div><div class="br-team loser">8 Clemson</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">5 Vanderbilt</div><div class="br-team loser">12 McNeese</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">4 Nebraska</div><div class="br-team loser">13 Troy</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">6 UNC</div><div class="br-team loser">11 VCU</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">3 Illinois</div><div class="br-team loser">14 Penn</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">10 Tex A&amp;M <span class="br-upset">UP</span></div><div class="br-team loser">7 St. Mary's</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">2 Houston</div><div class="br-team loser">15 Idaho</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">1 Michigan</div><div class="br-team loser">16 H/UMBC</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">8 Georgia</div><div class="br-team loser">9 St. Louis</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">4 Alabama</div><div class="br-team loser">13 Hofstra</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">5 Texas Tech</div><div class="br-team loser">12 Akron</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">3 Virginia</div><div class="br-team loser">14 Wright St</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">6 Tennessee</div><div class="br-team loser">11 SMU/MiaOH</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">2 Iowa St</div><div class="br-team loser">15 Tenn St</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">7 Kentucky</div><div class="br-team loser">10 S. Clara</div></div>
+          </div>
+
+        </div><!-- /br-rounds-right -->
+
+        <!-- ── REGION LABELS RIGHT ── -->
+        <div class="br-region-labels">
+          <div class="br-rlbl">South</div>
+          <div class="br-rlbl">Midwest</div>
+        </div>
+
+      </div><!-- /bracket-wrap -->
+    </div><!-- /bracket-scroll -->
   </div>
 </section>
 
@@ -835,6 +1370,352 @@
         <li><span class="num">4</span><span>Fade heavily-owned teams with injury exposure. Duke at 38% public ownership + Caleb Foster out (fractured foot) = worst risk-adjusted pick in the field.</span></li>
         <li><span class="num">5</span><span>Experience beats talent in March. Senior-led teams outperform their seedings. Weight accordingly.</span></li>
       </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ BARTORVIK ══════════════════════════════ -->
+<section id="torvik">
+  <div class="container">
+    <div class="section-label">Advanced Metrics</div>
+    <h2>BartTorvik T-Rank Analysis</h2>
+    <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:32px">
+      T-Rank composite ratings as of tournament selection. BARTHAG = probability of beating average D-I team.
+      ADJOE / ADJDE = adjusted offensive / defensive efficiency per 100 possessions.
+    </p>
+
+    <!-- T-Rank table -->
+    <div class="table-wrap" style="margin-bottom:40px">
+      <table>
+        <thead>
+          <tr>
+            <th>T-Rank</th>
+            <th>Team</th>
+            <th>BARTHAG</th>
+            <th>ADJOE</th>
+            <th>ADJDE</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-mono">#1</td>
+            <td class="td-team">Duke</td>
+            <td class="td-mono">.9721</td>
+            <td class="td-mono">123.4</td>
+            <td class="td-mono">88.6</td>
+            <td class="td-muted">Top-ranked despite injuries — depth carries them</td>
+          </tr>
+          <tr>
+            <td class="td-mono">#2</td>
+            <td class="td-team">Michigan</td>
+            <td class="td-mono">.9688</td>
+            <td class="td-mono">121.8</td>
+            <td class="td-mono">89.4</td>
+            <td class="td-muted">Best value Final Four pick — 8% pool ownership</td>
+          </tr>
+          <tr>
+            <td class="td-mono">#3</td>
+            <td class="td-team">Arizona</td>
+            <td class="td-mono">.9651</td>
+            <td class="td-mono">120.9</td>
+            <td class="td-mono">90.1</td>
+            <td class="td-muted">Champion pick — healthiest 1-seed, home region</td>
+          </tr>
+          <tr>
+            <td class="td-mono">#4</td>
+            <td class="td-team">Florida</td>
+            <td class="td-mono">.9612</td>
+            <td class="td-mono">119.7</td>
+            <td class="td-mono">90.8</td>
+            <td class="td-muted">Overowned at 1-seed; Houston matchup looms</td>
+          </tr>
+          <tr>
+            <td class="td-mono">#5</td>
+            <td class="td-team">Houston</td>
+            <td class="td-mono">.9589</td>
+            <td class="td-mono">117.2</td>
+            <td class="td-mono">87.3</td>
+            <td class="td-muted">#3 KenPom defense — elite upset threat over Florida</td>
+          </tr>
+          <tr>
+            <td class="td-mono">#6</td>
+            <td class="td-team">Illinois</td>
+            <td class="td-mono">.9544</td>
+            <td class="td-mono">118.1</td>
+            <td class="td-mono">91.2</td>
+            <td class="td-muted">TORD ranked 365th — fatal defensive liability</td>
+          </tr>
+          <tr>
+            <td class="td-mono">#7</td>
+            <td class="td-team">Iowa State</td>
+            <td class="td-mono">.9501</td>
+            <td class="td-mono">116.4</td>
+            <td class="td-mono">90.5</td>
+            <td class="td-muted">Balanced profile, reliable Sweet 16 floor</td>
+          </tr>
+          <tr>
+            <td class="td-mono">#8</td>
+            <td class="td-team">Purdue</td>
+            <td class="td-mono">.9478</td>
+            <td class="td-mono">122.3</td>
+            <td class="td-mono">93.7</td>
+            <td class="td-muted">#2 ADJOE nationally — elite offensive efficiency</td>
+          </tr>
+          <tr>
+            <td class="td-mono">#9</td>
+            <td class="td-team">UConn</td>
+            <td class="td-mono">.9441</td>
+            <td class="td-mono">115.8</td>
+            <td class="td-mono">89.9</td>
+            <td class="td-muted">Defending champs — experience edge in close games</td>
+          </tr>
+          <tr>
+            <td class="td-mono">#10</td>
+            <td class="td-team">Vanderbilt</td>
+            <td class="td-mono">.9398</td>
+            <td class="td-mono">116.2</td>
+            <td class="td-mono">91.8</td>
+            <td class="td-muted" style="color:var(--gold)">Massively underseeded at 5 — tougher than Nebraska</td>
+          </tr>
+          <tr>
+            <td class="td-mono">#11</td>
+            <td class="td-team">Gonzaga</td>
+            <td class="td-mono">.9362</td>
+            <td class="td-mono">119.3</td>
+            <td class="td-mono">92.4</td>
+            <td class="td-muted">Still #11 T-Rank without Huff — top-10 defense intact</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Key findings callout boxes -->
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:20px;color:var(--text)">Key T-Rank Findings</h3>
+    <div class="torvik-grid">
+
+      <div class="torvik-card torvik-gold">
+        <div class="torvik-card-header">
+          <span class="torvik-icon">&#127942;</span>
+          <span class="torvik-title">Vanderbilt #10 T-Rank — Massively Underseeded</span>
+        </div>
+        <p>Seeded 5th, Vanderbilt profiles as a top-10 team nationally by T-Rank — statistically tougher than Nebraska (#14 KenPom). Any bracket picking Nebraska deep should reconsider; Vanderbilt is a genuine sleeper threat in the Round of 32 and beyond.</p>
+      </div>
+
+      <div class="torvik-card torvik-red">
+        <div class="torvik-card-header">
+          <span class="torvik-icon">&#128680;</span>
+          <span class="torvik-title">Illinois TORD 365th — Houston Will Feast</span>
+        </div>
+        <p>Illinois ranks dead last nationally in turnover rate forced (TORD). Houston's defense is built entirely around generating turnovers and capitalizing on possessions. This is a catastrophic stylistic mismatch — fade Illinois in any bracket matchup against Houston.</p>
+      </div>
+
+      <div class="torvik-card torvik-orange">
+        <div class="torvik-card-header">
+          <span class="torvik-icon">&#9888;&#65039;</span>
+          <span class="torvik-title">Nebraska FTR 350th — Free Throw Vulnerability</span>
+        </div>
+        <p>Nebraska's free throw rate (FTR) ranks 350th nationally — they almost never get to the line. In close tournament games decided by fouls and late free throws, this is a meaningful liability. Temper deep-run expectations accordingly.</p>
+      </div>
+
+      <div class="torvik-card torvik-blue">
+        <div class="torvik-card-header">
+          <span class="torvik-icon">&#127919;</span>
+          <span class="torvik-title">Akron EFG% 7th Nationally (58.5%) vs Texas Tech</span>
+        </div>
+        <p>Akron shoots 58.5% effective field goal percentage — 7th best in the entire country. Texas Tech's defense has collapsed late in the season. This is a dangerous first-round matchup that most brackets will overlook entirely.</p>
+      </div>
+
+      <div class="torvik-card torvik-purple">
+        <div class="torvik-card-header">
+          <span class="torvik-icon">&#128269;</span>
+          <span class="torvik-title">Gonzaga Still #11 T-Rank Without Huff</span>
+        </div>
+        <p>Despite Braden Huff's kneecap dislocation (out first two rounds), Gonzaga remains the #11 team in the country by T-Rank with a top-10 defense. BYU at 75% upset confidence may be slightly overconfident — Gonzaga has the talent to win without him.</p>
+      </div>
+
+      <div class="torvik-card torvik-green">
+        <div class="torvik-card-header">
+          <span class="torvik-icon">&#9989;</span>
+          <span class="torvik-title">Iowa #26 T-Rank — Best 9-Seed Value Confirmed</span>
+        </div>
+        <p>Iowa's T-Rank of #26 sits 11 spots above Clemson's #30 (now further weakened by Carter Welling's torn ACL). T-Rank corroborates the KenPom gap — Iowa over Clemson is the highest-confidence upset call in the bracket, now at 85%.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ TEAM PROFILES ═════════════════════════ -->
+<section id="profiles">
+  <div class="container">
+    <div class="section-label">Team Breakdowns</div>
+    <h2>Team Profiles</h2>
+    <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:28px">
+      Gold border = Final Four pick &nbsp;·&nbsp; Blue border = Sweet 16 or deeper &nbsp;·&nbsp; Gray = early exit
+    </p>
+    <div class="profiles-grid">
+
+      <!-- ARIZONA -->
+      <div class="profile-card profile-ff">
+        <div class="profile-header">
+          <div><div class="profile-team-name">Arizona</div><div class="profile-meta">1-Seed · West Region</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #3</span><span class="profile-badge pb-kenpom">KenPom #3</span></div>
+        </div>
+        <p class="profile-body">Arizona enters the tournament as the most complete team in the field — top-5 KenPom offense, top-3 defense, and zero meaningful weaknesses. Big 12 POY Jaden Bradley anchors a backcourt that includes freshmen Brayden Burries (15.9 PPG) and Koa Peat (13.6 PPG), surrounded by elite size with 7-2 Mo Krivas. The Wildcats beat 12 ranked teams this season and have given up only one Kill Shot all year per EvanMiya. The healthiest and most balanced 1-seed, underowned in public pools at 14% vs Duke's 38%.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>National Champion</span></div>
+      </div>
+
+      <!-- MICHIGAN -->
+      <div class="profile-card profile-ff">
+        <div class="profile-header">
+          <div><div class="profile-team-name">Michigan</div><div class="profile-meta">1-Seed · Midwest Region</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #2</span><span class="profile-badge pb-kenpom">KenPom #2</span></div>
+        </div>
+        <p class="profile-body">Michigan's frontcourt is historically dominant — Lendeborg (6-9), Johnson Jr. (6-9), and Mara (7-3) form one of the tallest, most skilled front lines in college basketball history. The Wolverines shoot 59% inside the arc and hold opponents to 50% on the same shots — a 15-point delta that is statistically extraordinary. Lottery pick Lendeborg averages 14.3 PPG / 7.3 RPG while anchoring the nation's top interior defense. Michigan lost just two regular season games by a combined 8 points and enters as the slight betting favorite.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>National Championship Game</span></div>
+      </div>
+
+      <!-- UCONN -->
+      <div class="profile-card profile-ff">
+        <div class="profile-header">
+          <div><div class="profile-team-name">UConn</div><div class="profile-meta">2-Seed · East Region</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #9</span><span class="profile-badge pb-kenpom">KenPom #12</span></div>
+        </div>
+        <p class="profile-body">UConn carries championship DNA — multiple players on this roster were part of back-to-back title teams — and their KenPom #11 defense is genuinely elite. The Huskies went 29-5 with quality wins over Florida, Kansas, Illinois, and BYU; their only blemish was a 20-point loss to St. John's in the Big East title game. Silas Demary Jr. leads in assists and steals, and a battle-hardened path through the brutal East bracket makes them the most proven team at the Final Four.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>National Championship Game</span></div>
+      </div>
+
+      <!-- HOUSTON -->
+      <div class="profile-card profile-ff">
+        <div class="profile-header">
+          <div><div class="profile-team-name">Houston</div><div class="profile-meta">2-Seed · South Region</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #5</span><span class="profile-badge pb-kenpom">KenPom #10</span></div>
+        </div>
+        <p class="profile-body">Kelvin Sampson has built Houston into a perennial Final Four program and this team has unfinished business after the 2025 championship game. Kingston Flemings (16.4 PPG) and Emmanuel Sharp are projected first-round picks who provide elite two-way play at the wing. The Cougars play the South Regional in their literal home market — Toyota Center — giving them a structural home-crowd advantage through the Elite Eight. Elite defense ranked #3 nationally in turnover rate forced.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>Final Four</span></div>
+      </div>
+
+      <!-- DUKE -->
+      <div class="profile-card profile-s16">
+        <div class="profile-header">
+          <div><div class="profile-team-name">Duke</div><div class="profile-meta">1-Seed · East Region</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #1</span><span class="profile-badge pb-kenpom">KenPom #1</span></div>
+        </div>
+        <p class="profile-body">Cameron Boozer (22.7 PPG, 10.2 RPG) is national player of the year and the most dominant freshman in college basketball history. Duke's structural problem: starting PG Caleb Foster fractured his foot and is out for the season, forcing Cayden Boozer into the point guard role. The Blue Devils face a brutal East bracket with Kansas, Michigan State, and UConn as potential opponents. Won the ACC Tournament without Foster, but the margin for error is now thin.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>Elite Eight (injury-adjusted)</span></div>
+      </div>
+
+      <!-- FLORIDA -->
+      <div class="profile-card profile-s16">
+        <div class="profile-header">
+          <div><div class="profile-team-name">Florida</div><div class="profile-meta">1-Seed · South Region</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #4</span><span class="profile-badge pb-kenpom">KenPom #7</span></div>
+        </div>
+        <p class="profile-body">Florida is the defending national champion riding an 11-game winning streak. Thomas Haugh (17.2 PPG) is a projected lottery pick and SEC POY, while Rueben Chinyelu (11.4 PPG, 11.7 RPG) chases national defensive POY. The Gators own the #1 rebounding margin in the nation (+14.5) and shot 59% from 2 / 38% from 3 during their streak. The risk: streaky guards and a Houston Elite Eight matchup where Houston plays essentially at home.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>Elite Eight</span></div>
+      </div>
+
+      <!-- PURDUE -->
+      <div class="profile-card profile-s16">
+        <div class="profile-header">
+          <div><div class="profile-team-name">Purdue</div><div class="profile-meta">2-Seed · West Region</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #8</span><span class="profile-badge pb-kenpom">KenPom #8</span></div>
+        </div>
+        <p class="profile-body">Purdue enters riding momentum from a Big Ten Tournament title, including an 80-72 win over Michigan. The Boilermakers own the #1 adjusted offensive efficiency nationally and lead the country in assists per game (19.9) — a reflection of Braden Smith's elite playmaking. Their defensive profile (ADJDE 100.3, T-Rank #38) is the one concern — borderline for the historical champion filter. An Arizona vs Purdue Elite Eight matchup would be the best game of the tournament.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>Elite Eight</span></div>
+      </div>
+
+      <!-- IOWA STATE -->
+      <div class="profile-card profile-s16">
+        <div class="profile-header">
+          <div><div class="profile-team-name">Iowa State</div><div class="profile-meta">2-Seed · Midwest Region</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #7</span><span class="profile-badge pb-kenpom">KenPom #5</span></div>
+        </div>
+        <p class="profile-body">Iowa State is the most underrated team in the field — quietly dominant with a top-6 defense nationally and a disciplined offensive system that controls tempo. Joshua Jefferson stuffs the stat sheet (16.9 PPG, 7.6 RPG, 4.9 APG) with the highest assist rate of any big man in the country. EvanMiya flags Iowa State as one of the streakiest teams in the field — capable of flaming out early or getting hot and making a deep run. A different draw makes them a legitimate champion.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>Elite Eight</span></div>
+      </div>
+
+      <!-- KANSAS -->
+      <div class="profile-card profile-s16">
+        <div class="profile-header">
+          <div><div class="profile-team-name">Kansas</div><div class="profile-meta">4-Seed · East Region</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #22</span><span class="profile-badge pb-kenpom">KenPom #18</span></div>
+        </div>
+        <p class="profile-body">Kansas is the bracket's most undervalued team — 8 Quad 1 wins (one of only 11 nationally), an elite defense built for March basketball, and freshman Darryn Peterson (19.8 PPG) as a legitimate star. Their path goes through an injury-depleted Duke team missing starting PG Caleb Foster — arguably the best bracket position of any 4-seed in recent tournament history. The concern: Kansas went 3-4 in their final 7 games with a 100th-ranked adjusted offensive efficiency by BartTorvik.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>Elite Eight</span></div>
+      </div>
+
+      <!-- MICHIGAN STATE -->
+      <div class="profile-card profile-s16">
+        <div class="profile-header">
+          <div><div class="profile-team-name">Michigan State</div><div class="profile-meta">3-Seed · East Region</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #13</span><span class="profile-badge pb-kenpom">KenPom #15</span></div>
+        </div>
+        <p class="profile-body">Tom Izzo has taken Michigan State to the Final Four nine times and this team has the defensive identity and physicality that defines his best squads. Jeremy Fears Jr. leads the nation in assists at 9.2 per game while scoring 15.7 PPG — a true two-way point guard who elevates in March. The Spartans rank #1 nationally in rebounding rate and #7 in offensive rebounding. Their Sweet 16 opponent is UConn, not an injured Duke — a meaningfully tougher matchup that caps their upside.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>Sweet 16</span></div>
+      </div>
+
+      <!-- ILLINOIS -->
+      <div class="profile-card profile-s16">
+        <div class="profile-header">
+          <div><div class="profile-team-name">Illinois</div><div class="profile-meta">3-Seed · South Region</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #6</span><span class="profile-badge pb-kenpom">KenPom #5</span></div>
+        </div>
+        <p class="profile-body">Illinois owns the #1 adjusted offensive efficiency in the country by BartTorvik and plays at a fast pace that overwhelms most opponents. The fatal flaw: their turnover rate allowed ranks 365th nationally (dead last), meaning they almost never force opponent mistakes. Houston's elite defensive pressure will feast on Illinois ball-handlers in the Sweet 16, making this one of the most predictable exits in the bracket. A dominant offense-only profile that fails the historical champion filter.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>Sweet 16</span></div>
+      </div>
+
+      <!-- VANDERBILT -->
+      <div class="profile-card profile-s16">
+        <div class="profile-header">
+          <div><div class="profile-team-name">Vanderbilt</div><div class="profile-meta">5-Seed · South Region</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #10</span><span class="profile-badge pb-kenpom">KenPom #12</span></div>
+        </div>
+        <p class="profile-body">Vanderbilt is the most underseeded team in the 2026 field — ranked #10 by BartTorvik and #12 by KenPom despite receiving only a 5-seed. Tyler Tanner (19.2 PPG) is a projected first-round pick having a breakout season, and the Commodores reached the SEC Championship with a win over defending champion Florida. They enter hot with five wins in their last six games. A genuine Sweet 16 threat and the team most likely to pull off a bracket-busting run from the 5-line.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>Sweet 16</span></div>
+      </div>
+
+      <!-- GONZAGA -->
+      <div class="profile-card profile-s16">
+        <div class="profile-header">
+          <div><div class="profile-team-name">Gonzaga</div><div class="profile-meta">3-Seed · West Region</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #11</span><span class="profile-badge pb-kenpom">KenPom #25</span></div>
+        </div>
+        <p class="profile-body">Even without Braden Huff (kneecap dislocation, out first two rounds), Gonzaga remains a legitimately dangerous team with a top-10 defense. Graham Ike (19.7 PPG, 5th-year senior) provides elite interior scoring and experience. The offense fell from 14th to 68th KenPom without Huff, creating a real vulnerability against BYU's Dybantsa-led attack. If Huff returns for the Sweet 16, Gonzaga becomes a dark horse Final Four team — the biggest two-way bet in the bracket.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>Sweet 16 (w/o Huff) / Final Four (with Huff)</span></div>
+      </div>
+
+      <!-- BYU -->
+      <div class="profile-card profile-s16">
+        <div class="profile-header">
+          <div><div class="profile-team-name">BYU</div><div class="profile-meta">6-Seed · West Region</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #33</span><span class="profile-badge pb-kenpom">KenPom #40</span></div>
+        </div>
+        <p class="profile-body">AJ Dybantsa is the most talented individual player in the tournament — the projected #1 NBA Draft pick and nation's leading scorer who is capable of single-handedly carrying a team through a bracket. The concern: Richie Saunders (torn ACL) was BYU's best shooter, leaving Dybantsa without a true co-star. BYU went under .500 after Saunders went down and their defense (T-Rank #88 defensive end) is soft. A genuine upset over an injured Gonzaga is possible, but Purdue's depth ends the run in the Sweet 16.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>Sweet 16</span></div>
+      </div>
+
+      <!-- IOWA -->
+      <div class="profile-card profile-other">
+        <div class="profile-header">
+          <div><div class="profile-team-name">Iowa</div><div class="profile-meta">9-Seed · South Region (East bracket)</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #26</span><span class="profile-badge pb-kenpom">KenPom #25</span></div>
+        </div>
+        <p class="profile-body">Iowa is the best value pick in the entire bracket — ranked 11 T-Rank spots above Clemson and confirmed as the scariest 9-seed in the field by KenPom. The Hawkeyes are Big Ten battle-tested with an experienced roster prepared for tournament pressure far beyond their seed. First-round opponent Clemson just lost Carter Welling (torn ACL) — their top rebounder and second scorer — making this matchup even more favorable. A legitimate Round of 32 team that could make Florida work in the second round.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>Round of 32</span></div>
+      </div>
+
+      <!-- ALABAMA -->
+      <div class="profile-card profile-other">
+        <div class="profile-header">
+          <div><div class="profile-team-name">Alabama</div><div class="profile-meta">4-Seed · Midwest Region</div></div>
+          <div class="profile-badges"><span class="profile-badge pb-trank">T-Rank #18</span><span class="profile-badge pb-kenpom">KenPom #22</span></div>
+        </div>
+        <p class="profile-body">Alabama entered as one of the most explosive offensive teams in history — leading the nation at 91.7 PPG with the #3 adjusted offense and 4th-fastest pace. Then Aden Holloway (16.8 PPG, 43.8% 3P) was arrested on felony charges the week of the tournament and suspended indefinitely, gutting their second scorer and best three-point shooter. Without Holloway, Alabama has nine scholarship players and a defense already ranked 101st in KenPom efficiency. Michigan's frontcourt will dominate this Sweet 16 matchup.</p>
+        <div class="profile-ceiling">Tournament Ceiling: <span>Round of 32 (Holloway suspended)</span></div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1390,6 +2271,79 @@
     </div>
   </div>
 </footer>
+
+<!-- Injury FAB -->
+<button id="inj-fab" aria-label="Show injury alerts">🚨 Injuries</button>
+
+<!-- Injury Banner JS -->
+<script>
+(function () {
+  var banner   = document.getElementById('injury-banner');
+  var dismiss  = document.getElementById('inj-dismiss');
+  var fab      = document.getElementById('inj-fab');
+  var showAll  = document.getElementById('inj-show-all');
+  var extraRows = document.querySelectorAll('.inj-extra-row');
+  var expanded = false;
+  var KEY = 'inj_banner_dismissed';
+
+  function setBannerOffset() {
+    var h = banner.offsetHeight;
+    document.documentElement.style.setProperty('--banner-h', h + 'px');
+  }
+
+  function hideBanner() {
+    banner.style.display = 'none';
+    fab.style.display = 'flex';
+    document.documentElement.style.setProperty('--banner-h', '0px');
+    sessionStorage.setItem(KEY, '1');
+  }
+
+  function showBanner() {
+    banner.style.display = '';
+    fab.style.display = 'none';
+    sessionStorage.removeItem(KEY);
+    setBannerOffset();
+  }
+
+  // Collapse extra rows on mobile; on desktop always show all
+  function applyLayout() {
+    var mobile = window.innerWidth <= 768;
+    extraRows.forEach(function (r) {
+      r.style.display = (!mobile || expanded) ? '' : 'none';
+    });
+    if (showAll) {
+      showAll.style.display = mobile ? '' : 'none';
+      showAll.textContent = expanded
+        ? 'show less ▴'
+        : 'show questionable & expected ▾';
+    }
+  }
+
+  if (showAll) {
+    showAll.addEventListener('click', function () {
+      expanded = !expanded;
+      applyLayout();
+      setBannerOffset();
+    });
+  }
+
+  dismiss.addEventListener('click', hideBanner);
+  fab.addEventListener('click', showBanner);
+
+  window.addEventListener('resize', function () {
+    applyLayout();
+    if (banner.style.display !== 'none') setBannerOffset();
+  });
+
+  // Init
+  if (sessionStorage.getItem(KEY)) {
+    hideBanner();
+  } else {
+    applyLayout();
+    setBannerOffset();
+  }
+}());
+</script>
 
 <!-- Lightbox -->
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
