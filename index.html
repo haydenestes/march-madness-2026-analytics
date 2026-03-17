@@ -1009,8 +1009,105 @@
     @media (max-width: 700px) {
       .profiles-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── Live Results Tracker ── */
+    .results-header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+    .results-sub { font-size: .88rem; color: var(--text-muted); margin-top: 6px; }
+    .tournament-status {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(63,185,80,.1); border: 1px solid rgba(63,185,80,.35);
+      color: var(--green); font-size: .8rem; font-weight: 700;
+      padding: 7px 14px; border-radius: 20px; white-space: nowrap;
+    }
+    .results-metrics {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 32px;
+    }
+    .metric-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 18px 16px; text-align: center;
+    }
+    .metric-val { font-size: 1.8rem; font-weight: 700; color: var(--text); line-height: 1; }
+    .metric-lbl { font-size: .78rem; font-weight: 600; color: var(--text-muted); margin-top: 6px; text-transform: uppercase; letter-spacing: .06em; }
+    .metric-sub { font-size: .72rem; color: var(--text-dim); margin-top: 4px; }
+    /* Accordion */
+    .acc-round { border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 8px; overflow: hidden; }
+    .acc-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 13px 18px; cursor: pointer; background: var(--bg-card);
+      user-select: none; gap: 12px;
+    }
+    .acc-header:hover { background: var(--bg-card2); }
+    .acc-title { display: flex; align-items: center; gap: 10px; }
+    .acc-round-name { font-weight: 600; font-size: .92rem; }
+    .acc-pts-label { font-size: .72rem; color: var(--text-dim); background: rgba(255,255,255,.06); padding: 2px 7px; border-radius: 8px; }
+    .acc-stats { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+    .acc-stat { font-size: .75rem; color: var(--text-muted); }
+    .acc-stat-correct { color: var(--green); font-weight: 600; }
+    .acc-chevron { font-size: .7rem; color: var(--text-dim); flex-shrink: 0; }
+    .acc-body { background: var(--bg); }
+    .tr-region-hdr td { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--blue); background: rgba(88,166,255,.06) !important; padding: 6px 12px !important; }
+    .tr-correct td { background: rgba(63,185,80,.08); }
+    .tr-wrong   td { background: rgba(248,81,73,.07); }
+    .tr-upset   td { background: rgba(245,166,35,.1); }
+    .td-matchup { font-size: .82rem; }
+    .td-pick    { font-size: .82rem; }
+    .td-notes   { font-size: .75rem; max-width: 180px; }
+    .acc-upset-tag {
+      font-size: 9px; font-weight: 800; background: rgba(204,0,0,.2);
+      color: #ff7070; border-radius: 3px; padding: 1px 4px;
+      letter-spacing: .05em; margin-left: 4px; vertical-align: middle;
+    }
+    /* Status pills */
+    .r-pill { display: inline-flex; align-items: center; gap: 4px; font-size: .72rem; font-weight: 700; padding: 3px 9px; border-radius: 10px; white-space: nowrap; }
+    .r-pending { background: rgba(110,118,129,.15); border: 1px solid rgba(110,118,129,.3); color: var(--text-dim); }
+    .r-correct { background: rgba(63,185,80,.15); border: 1px solid rgba(63,185,80,.4); color: var(--green); }
+    .r-wrong   { background: rgba(248,81,73,.12); border: 1px solid rgba(248,81,73,.4); color: var(--red); }
+    .r-upset   { background: rgba(245,166,35,.15); border: 1px solid rgba(245,166,35,.4); color: var(--gold); }
+    /* Upset tracker grid */
+    .results-sub-h3 { font-size: .95rem; font-weight: 600; margin: 32px 0 14px; color: var(--text); }
+    .upset-tracker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; margin-bottom: 32px; }
+    .upset-card {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 12px 14px;
+    }
+    .ucard-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .ucard-body { flex: 1; min-width: 0; }
+    .ucard-desc { font-size: .82rem; font-weight: 600; color: var(--text); }
+    .ucard-seeds { font-size: .72rem; color: var(--text-dim); margin-top: 2px; }
+    .ucard-status { font-size: .72rem; font-weight: 700; white-space: nowrap; }
+    .ucard-pending .ucard-status { color: var(--text-dim); }
+    .ucard-correct { border-color: rgba(63,185,80,.4); background: rgba(63,185,80,.06); }
+    .ucard-correct .ucard-status { color: var(--green); }
+    .ucard-wrong   { border-color: rgba(248,81,73,.4);  background: rgba(248,81,73,.05); }
+    .ucard-wrong .ucard-status   { color: var(--red); }
+    /* Admin panel */
+    .admin-panel {
+      display: none; background: #0d1117;
+      border: 2px dashed rgba(88,166,255,.3); border-radius: var(--radius-lg);
+      padding: 20px 24px; margin-top: 24px;
+    }
+    .admin-title { font-size: .85rem; font-weight: 700; color: var(--blue); margin-bottom: 16px; letter-spacing: .05em; }
+    .admin-form { display: flex; flex-direction: column; gap: 14px; }
+    .admin-row { display: flex; flex-direction: column; gap: 5px; }
+    .admin-row label { font-size: .78rem; font-weight: 600; color: var(--text-muted); }
+    .admin-row select, .admin-row input[type="text"] {
+      background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--text); border-radius: var(--radius); padding: 7px 10px;
+      font-size: .83rem; max-width: 480px;
+    }
+    .admin-row select:focus, .admin-row input[type="text"]:focus { outline: none; border-color: var(--blue-dim); }
+    .admin-radios { display: flex; flex-direction: column; gap: 6px; }
+    .admin-radios label { display: flex; align-items: center; gap: 8px; font-size: .82rem; color: var(--text); font-weight: 400; cursor: pointer; }
+    .admin-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+    .admin-hint { font-size: .74rem; color: var(--text-dim); margin-top: 14px; }
+    @media (max-width: 768px) {
+      .results-metrics { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .results-metrics { grid-template-columns: 1fr; }
+    }
   </style>
-</head>
 </head>
 <body>
 
@@ -1074,6 +1171,7 @@
     </div>
     <ul class="nav-links">
       <li><a href="#bracket">Bracket</a></li>
+      <li><a href="#results">Results</a></li>
       <li><a href="#methodology">Methodology</a></li>
       <li><a href="#torvik">T-Rank</a></li>
       <li><a href="#profiles">Profiles</a></li>
@@ -1303,6 +1401,357 @@
     </div><!-- /bracket-scroll -->
   </div>
 </section>
+
+<!-- ══════════════════════════ LIVE RESULTS ══════════════════════════ -->
+<section id="results">
+  <div class="container">
+    <div class="results-header">
+      <div>
+        <div class="section-label">Live Tracker</div>
+        <h2 id="results-h2">Live Results Tracker</h2>
+        <p class="results-sub">Tracking prediction accuracy round by round — updated after each game</p>
+      </div>
+      <span class="tournament-status">🏀 First Four — In Progress</span>
+    </div>
+
+    <div class="results-metrics" id="results-metrics"></div>
+    <div class="results-accordion" id="results-accordion"></div>
+
+    <h3 class="results-sub-h3">Upset Calls Tracker</h3>
+    <div class="upset-tracker-grid" id="upset-tracker"></div>
+
+    <div class="admin-panel" id="admin-panel">
+      <div class="admin-title">⚙ Admin — Update Results &nbsp;<span style="font-size:.72rem;color:var(--text-dim);font-weight:400">(double-click section title to hide)</span></div>
+      <div class="admin-form">
+        <div class="admin-row">
+          <label>Game</label>
+          <select id="admin-game"></select>
+        </div>
+        <div class="admin-row">
+          <label>Result</label>
+          <div class="admin-radios">
+            <label><input type="radio" name="admin-result" value="correct"> ✓ Correct — our pick won</label>
+            <label><input type="radio" name="admin-result" value="wrong"> ✗ Wrong — our pick lost</label>
+          </div>
+        </div>
+        <div class="admin-row">
+          <label>Final Score <small style="font-weight:400;color:var(--text-dim)">(optional)</small></label>
+          <input type="text" id="admin-score" placeholder="e.g. 82-71">
+        </div>
+        <div class="admin-row">
+          <label>Notes <small style="font-weight:400;color:var(--text-dim)">(optional)</small></label>
+          <input type="text" id="admin-notes" placeholder="Brief note">
+        </div>
+        <div class="admin-actions">
+          <button id="admin-submit" class="btn">Update Result</button>
+          <button id="admin-clear" class="btn" style="background:rgba(248,81,73,.12);border-color:rgba(248,81,73,.35);color:var(--red)">Clear Result</button>
+        </div>
+      </div>
+      <p class="admin-hint">All results saved to localStorage and persist across page refreshes. Double-click the "Live Results Tracker" heading to toggle this panel.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  'use strict';
+
+  var ROUNDS = [
+    { key:'R64', label:'First Round',  pts:10  },
+    { key:'R32', label:'Round of 32',  pts:20  },
+    { key:'S16', label:'Sweet 16',     pts:40  },
+    { key:'E8',  label:'Elite Eight',  pts:80  },
+    { key:'FF',  label:'Final Four',   pts:160 },
+    { key:'NCG', label:'Championship', pts:320 }
+  ];
+
+  var GAMES = [
+    // ── First Round · East ──
+    {id:'r64-e1',round:'R64',region:'East',   matchup:'Duke vs Siena',              pick:'Duke',        upset:false},
+    {id:'r64-e2',round:'R64',region:'East',   matchup:'Ohio St vs TCU',             pick:'Ohio St',     upset:false},
+    {id:'r64-e3',round:'R64',region:'East',   matchup:'St. John\'s vs N Iowa',      pick:'St. John\'s', upset:false},
+    {id:'r64-e4',round:'R64',region:'East',   matchup:'Kansas vs Cal Baptist',      pick:'Kansas',      upset:false},
+    {id:'r64-e5',round:'R64',region:'East',   matchup:'Louisville vs S Florida',    pick:'Louisville',  upset:false},
+    {id:'r64-e6',round:'R64',region:'East',   matchup:'Michigan St vs NDSU',        pick:'Michigan St', upset:false},
+    {id:'r64-e7',round:'R64',region:'East',   matchup:'UCLA vs UCF',                pick:'UCLA',        upset:false},
+    {id:'r64-e8',round:'R64',region:'East',   matchup:'UConn vs Furman',            pick:'UConn',       upset:false},
+    // ── First Round · West ──
+    {id:'r64-w1',round:'R64',region:'West',   matchup:'Arizona vs Long Island',     pick:'Arizona',     upset:false},
+    {id:'r64-w2',round:'R64',region:'West',   matchup:'Utah St vs Villanova',       pick:'Utah St',     upset:true },
+    {id:'r64-w3',round:'R64',region:'West',   matchup:'Wisconsin vs High Point',    pick:'Wisconsin',   upset:false},
+    {id:'r64-w4',round:'R64',region:'West',   matchup:'Arkansas vs Hawaii',         pick:'Arkansas',    upset:false},
+    {id:'r64-w5',round:'R64',region:'West',   matchup:'BYU vs NC State',            pick:'BYU',         upset:false},
+    {id:'r64-w6',round:'R64',region:'West',   matchup:'Gonzaga vs Kennesaw St',     pick:'Gonzaga',     upset:false},
+    {id:'r64-w7',round:'R64',region:'West',   matchup:'Missouri vs Miami FL',       pick:'Missouri',    upset:true },
+    {id:'r64-w8',round:'R64',region:'West',   matchup:'Purdue vs Queens',           pick:'Purdue',      upset:false},
+    // ── First Round · South ──
+    {id:'r64-s1',round:'R64',region:'South',  matchup:'Florida vs Lehigh/PVAMU',    pick:'Florida',     upset:false},
+    {id:'r64-s2',round:'R64',region:'South',  matchup:'Iowa vs Clemson',            pick:'Iowa',        upset:true },
+    {id:'r64-s3',round:'R64',region:'South',  matchup:'Vanderbilt vs McNeese',      pick:'Vanderbilt',  upset:false},
+    {id:'r64-s4',round:'R64',region:'South',  matchup:'Nebraska vs Troy',           pick:'Nebraska',    upset:false},
+    {id:'r64-s5',round:'R64',region:'South',  matchup:'UNC vs VCU',                 pick:'UNC',         upset:false},
+    {id:'r64-s6',round:'R64',region:'South',  matchup:'Illinois vs Penn',           pick:'Illinois',    upset:false},
+    {id:'r64-s7',round:'R64',region:'South',  matchup:'Texas A&M vs Saint Mary\'s', pick:'Texas A&M',   upset:true },
+    {id:'r64-s8',round:'R64',region:'South',  matchup:'Houston vs Idaho',           pick:'Houston',     upset:false},
+    // ── First Round · Midwest ──
+    {id:'r64-m1',round:'R64',region:'Midwest',matchup:'Michigan vs Howard/UMBC',    pick:'Michigan',    upset:false},
+    {id:'r64-m2',round:'R64',region:'Midwest',matchup:'Georgia vs Saint Louis',     pick:'Georgia',     upset:false},
+    {id:'r64-m3',round:'R64',region:'Midwest',matchup:'Alabama vs Hofstra',         pick:'Alabama',     upset:false},
+    {id:'r64-m4',round:'R64',region:'Midwest',matchup:'Texas Tech vs Akron',        pick:'Texas Tech',  upset:false},
+    {id:'r64-m5',round:'R64',region:'Midwest',matchup:'Virginia vs Wright St',      pick:'Virginia',    upset:false},
+    {id:'r64-m6',round:'R64',region:'Midwest',matchup:'Tennessee vs SMU/Miami OH',  pick:'Tennessee',   upset:false},
+    {id:'r64-m7',round:'R64',region:'Midwest',matchup:'Iowa St vs Tenn St',         pick:'Iowa St',     upset:false},
+    {id:'r64-m8',round:'R64',region:'Midwest',matchup:'Kentucky vs Santa Clara',    pick:'Kentucky',    upset:false},
+    // ── Round of 32 · East ──
+    {id:'r32-e1',round:'R32',region:'East',   matchup:'Duke vs Ohio St',            pick:'Duke',        upset:false},
+    {id:'r32-e2',round:'R32',region:'East',   matchup:'Kansas vs St. John\'s',      pick:'Kansas',      upset:false},
+    {id:'r32-e3',round:'R32',region:'East',   matchup:'Michigan St vs Louisville',  pick:'Michigan St', upset:false},
+    {id:'r32-e4',round:'R32',region:'East',   matchup:'UConn vs UCLA',              pick:'UConn',       upset:false},
+    // ── Round of 32 · West ──
+    {id:'r32-w1',round:'R32',region:'West',   matchup:'Arizona vs Utah St',         pick:'Arizona',     upset:false},
+    {id:'r32-w2',round:'R32',region:'West',   matchup:'Arkansas vs Wisconsin',      pick:'Arkansas',    upset:false},
+    {id:'r32-w3',round:'R32',region:'West',   matchup:'BYU vs Gonzaga',             pick:'BYU',         upset:true },
+    {id:'r32-w4',round:'R32',region:'West',   matchup:'Purdue vs Missouri',         pick:'Purdue',      upset:false},
+    // ── Round of 32 · South ──
+    {id:'r32-s1',round:'R32',region:'South',  matchup:'Florida vs Iowa',            pick:'Florida',     upset:false},
+    {id:'r32-s2',round:'R32',region:'South',  matchup:'Nebraska vs Vanderbilt',     pick:'Nebraska',    upset:false},
+    {id:'r32-s3',round:'R32',region:'South',  matchup:'Illinois vs UNC',            pick:'Illinois',    upset:false},
+    {id:'r32-s4',round:'R32',region:'South',  matchup:'Houston vs Texas A&M',       pick:'Houston',     upset:false},
+    // ── Round of 32 · Midwest ──
+    {id:'r32-m1',round:'R32',region:'Midwest',matchup:'Michigan vs Georgia',        pick:'Michigan',    upset:false},
+    {id:'r32-m2',round:'R32',region:'Midwest',matchup:'Alabama vs Texas Tech',      pick:'Alabama',     upset:false},
+    {id:'r32-m3',round:'R32',region:'Midwest',matchup:'Virginia vs Tennessee',      pick:'Virginia',    upset:false},
+    {id:'r32-m4',round:'R32',region:'Midwest',matchup:'Iowa St vs Kentucky',        pick:'Iowa St',     upset:false},
+    // ── Sweet 16 · East ──
+    {id:'s16-e1',round:'S16',region:'East',   matchup:'Kansas vs Duke',             pick:'Kansas',      upset:true },
+    {id:'s16-e2',round:'S16',region:'East',   matchup:'UConn vs Michigan St',       pick:'UConn',       upset:false},
+    // ── Sweet 16 · West ──
+    {id:'s16-w1',round:'S16',region:'West',   matchup:'Arizona vs Arkansas',        pick:'Arizona',     upset:false},
+    {id:'s16-w2',round:'S16',region:'West',   matchup:'Purdue vs BYU',              pick:'Purdue',      upset:false},
+    // ── Sweet 16 · South ──
+    {id:'s16-s1',round:'S16',region:'South',  matchup:'Florida vs Nebraska',        pick:'Florida',     upset:false},
+    {id:'s16-s2',round:'S16',region:'South',  matchup:'Houston vs Illinois',        pick:'Houston',     upset:false},
+    // ── Sweet 16 · Midwest ──
+    {id:'s16-m1',round:'S16',region:'Midwest',matchup:'Michigan vs Alabama',        pick:'Michigan',    upset:false},
+    {id:'s16-m2',round:'S16',region:'Midwest',matchup:'Iowa St vs Virginia',        pick:'Iowa St',     upset:false},
+    // ── Elite Eight ──
+    {id:'e8-e1', round:'E8', region:'East',   matchup:'UConn vs Kansas',            pick:'UConn',       upset:false},
+    {id:'e8-w1', round:'E8', region:'West',   matchup:'Arizona vs Purdue',          pick:'Arizona',     upset:false},
+    {id:'e8-s1', round:'E8', region:'South',  matchup:'Houston vs Florida',         pick:'Houston',     upset:true },
+    {id:'e8-m1', round:'E8', region:'Midwest',matchup:'Michigan vs Iowa St',        pick:'Michigan',    upset:false},
+    // ── Final Four ──
+    {id:'ff-1',  round:'FF', region:'',       matchup:'UConn vs Houston',           pick:'UConn',       upset:false},
+    {id:'ff-2',  round:'FF', region:'',       matchup:'Arizona vs Michigan',        pick:'Arizona',     upset:false},
+    // ── Championship ──
+    {id:'ncg-1', round:'NCG',region:'',       matchup:'Arizona vs UConn',           pick:'Arizona',     upset:false}
+  ];
+
+  var UPSET_PICKS = [
+    {id:'r64-s2', desc:'Iowa over Clemson',         seeds:'9 over 8'},
+    {id:'r64-w2', desc:'Utah St over Villanova',    seeds:'9 over 8'},
+    {id:'r64-w7', desc:'Missouri over Miami FL',    seeds:'10 over 7'},
+    {id:'r64-s7', desc:'Texas A&M over Saint Mary\'s', seeds:'10 over 7'},
+    {id:'r32-w3', desc:'BYU over Gonzaga',          seeds:'6 over 3'},
+    {id:'s16-e1', desc:'Kansas over Duke',          seeds:'4 over 1'},
+    {id:'e8-s1',  desc:'Houston over Florida',      seeds:'2 over 1'}
+  ];
+
+  var PTS = {R64:10, R32:20, S16:40, E8:80, FF:160, NCG:320};
+  var LS_KEY = 'mm2026_results';
+
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem(LS_KEY) || '{}'); } catch(e) { return {}; }
+  }
+  function saveState(s) {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(s)); } catch(e) {}
+  }
+
+  function calcMetrics(s) {
+    var decided=0, correct=0, pts=0, upsets=0;
+    GAMES.forEach(function(g) {
+      var r = s[g.id]; if (!r) return;
+      decided++;
+      if (r.correct) { correct++; pts += PTS[g.round]||0; if (g.upset) upsets++; }
+    });
+    var remaining = GAMES.length - decided;
+    var pct = decided > 0 ? Math.round(correct/decided*100) : 0;
+    var proj = pts + Math.round(remaining * 12);
+    return {decided:decided, correct:correct, pts:pts, upsets:upsets, pct:pct, proj:proj};
+  }
+
+  function statusPill(r, upset) {
+    if (!r) return '<span class="r-pill r-pending">⏳ Pending</span>';
+    if (r.correct && upset) return '<span class="r-pill r-upset">🏆 UPSET ✓</span>';
+    if (r.correct) return '<span class="r-pill r-correct">✓ Correct</span>';
+    return '<span class="r-pill r-wrong">✗ Wrong</span>';
+  }
+
+  function trCls(r, g) {
+    if (!r) return '';
+    if (r.correct && g.upset) return ' class="tr-upset"';
+    if (r.correct) return ' class="tr-correct"';
+    return ' class="tr-wrong"';
+  }
+
+  function resultCell(r) {
+    if (!r) return '<span class="td-muted">—</span>';
+    var txt = r.correct
+      ? '<span style="color:var(--green);font-size:.8rem">✓ Won' + (r.score?' · '+r.score:'') + '</span>'
+      : '<span style="color:var(--red);font-size:.8rem">✗ Lost' + (r.score?' · '+r.score:'') + '</span>';
+    return txt;
+  }
+
+  function renderMetrics(s) {
+    var m = calcMetrics(s);
+    document.getElementById('results-metrics').innerHTML =
+      mc('Overall Accuracy', m.decided>0 ? m.pct+'%' : '—', m.correct+' of '+m.decided+' games decided') +
+      mc('Upsets Called', m.upsets+' / 7', 'upset picks correct') +
+      mc('Points Scored', m.pts>0 ? m.pts : '—', '10·20·40·80·160·320 scale') +
+      mc('Projected Score', m.decided>0 ? '~'+m.proj : '—', 'estimated final pool score');
+  }
+  function mc(label, val, sub) {
+    return '<div class="metric-card"><div class="metric-val">'+val+'</div>'
+      +'<div class="metric-lbl">'+label+'</div><div class="metric-sub">'+sub+'</div></div>';
+  }
+
+  function renderAccordion(s) {
+    var el = document.getElementById('results-accordion');
+    var html = '';
+    ROUNDS.forEach(function(rnd, idx) {
+      var games = GAMES.filter(function(g){ return g.round===rnd.key; });
+      var decided = games.filter(function(g){ return !!s[g.id]; }).length;
+      var correct = games.filter(function(g){ var r=s[g.id]; return r&&r.correct; }).length;
+      var open = idx===0;
+      html += '<div class="acc-round">'
+        +'<div class="acc-header" data-rnd="'+rnd.key+'">'
+          +'<div class="acc-title"><span class="acc-round-name">'+rnd.label+'</span>'
+            +'<span class="acc-pts-label">'+rnd.pts+' pts/game</span></div>'
+          +'<div class="acc-stats"><span class="acc-stat">'+decided+'/'+games.length+' played</span>'
+            +(decided>0?'<span class="acc-stat acc-stat-correct">'+correct+' correct</span>':'')+'</div>'
+          +'<span class="acc-chevron">'+(open?'▲':'▼')+'</span>'
+        +'</div>'
+        +'<div class="acc-body"'+(open?'':' style="display:none"')+'>'
+          +buildTable(games, s)
+        +'</div></div>';
+    });
+    el.innerHTML = html;
+    el.querySelectorAll('.acc-header').forEach(function(h) {
+      h.addEventListener('click', function() {
+        var body = this.nextElementSibling;
+        var chev = this.querySelector('.acc-chevron');
+        var isOpen = body.style.display !== 'none';
+        body.style.display = isOpen ? 'none' : '';
+        chev.textContent = isOpen ? '▼' : '▲';
+      });
+    });
+  }
+
+  function buildTable(games, s) {
+    var regions = [];
+    games.forEach(function(g){ if(g.region && regions.indexOf(g.region)<0) regions.push(g.region); });
+    var html = '<div class="table-wrap"><table><thead><tr>'
+      +'<th>Matchup</th><th>Our Pick</th><th>Result</th><th>Correct?</th><th>Notes</th>'
+      +'</tr></thead><tbody>';
+    // If no regions (FF/Championship), render games directly; otherwise group by region
+    var gameRows = regions.length > 0 ? [] : games;
+    regions.forEach(function(reg) {
+      var rg = games.filter(function(g){ return g.region===reg; });
+      if (regions.length>1) html += '<tr class="tr-region-hdr"><td colspan="5">'+reg+' Region</td></tr>';
+      rg.forEach(function(g){ gameRows.push(g); });
+    });
+    gameRows.forEach(function(g) {
+      var r = s[g.id];
+      html += '<tr id="row-'+g.id+'"'+trCls(r,g)+'>'
+        +'<td class="td-matchup">'+g.matchup+(g.upset?' <span class="acc-upset-tag">UPSET PICK</span>':'')+'</td>'
+        +'<td class="td-pick"><strong>'+g.pick+'</strong></td>'
+        +'<td>'+resultCell(r)+'</td>'
+        +'<td>'+statusPill(r,g.upset)+'</td>'
+        +'<td class="td-muted td-notes">'+(r&&r.notes?r.notes:'—')+'</td>'
+        +'</tr>';
+    });
+    return html+'</tbody></table></div>';
+  }
+
+  function renderUpsets(s) {
+    var el = document.getElementById('upset-tracker');
+    el.innerHTML = UPSET_PICKS.map(function(up) {
+      var g = GAMES.filter(function(x){ return x.id===up.id; })[0];
+      var r = g ? s[g.id] : null;
+      var cls = !r ? 'ucard-pending' : (r.correct ? 'ucard-correct' : 'ucard-wrong');
+      var icon = !r ? '⏳' : (r.correct ? '🏆' : '✗');
+      var status = !r ? 'Pending' : (r.correct ? 'HIT ✓' : 'MISS ✗');
+      return '<div class="upset-card '+cls+'">'
+        +'<div class="ucard-icon">'+icon+'</div>'
+        +'<div class="ucard-body">'
+          +'<div class="ucard-desc">'+up.desc+'</div>'
+          +'<div class="ucard-seeds">'+up.seeds+'</div>'
+        +'</div>'
+        +'<div class="ucard-status">'+status+'</div>'
+        +'</div>';
+    }).join('');
+  }
+
+  function fillAdminDropdown(s) {
+    var sel = document.getElementById('admin-game');
+    var html = '<option value="">— Select a game —</option>';
+    ROUNDS.forEach(function(rnd) {
+      html += '<optgroup label="'+rnd.label+'">';
+      GAMES.filter(function(g){ return g.round===rnd.key; }).forEach(function(g) {
+        var r = s[g.id];
+        var flag = !r ? '' : (r.correct ? ' ✓' : ' ✗');
+        html += '<option value="'+g.id+'">'+g.matchup+flag+'</option>';
+      });
+      html += '</optgroup>';
+    });
+    sel.innerHTML = html;
+  }
+
+  function renderAll(s) {
+    renderMetrics(s);
+    renderAccordion(s);
+    renderUpsets(s);
+    fillAdminDropdown(s);
+  }
+
+  var state = loadState();
+  renderAll(state);
+
+  // Admin toggle via double-click on h2
+  var h2 = document.getElementById('results-h2');
+  var panel = document.getElementById('admin-panel');
+  h2.style.cursor = 'default';
+  h2.title = 'Double-click to open admin panel';
+  h2.addEventListener('dblclick', function() {
+    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+  });
+
+  document.getElementById('admin-submit').addEventListener('click', function() {
+    var id = document.getElementById('admin-game').value;
+    var res = document.querySelector('input[name="admin-result"]:checked');
+    if (!id) { alert('Select a game.'); return; }
+    if (!res) { alert('Select a result.'); return; }
+    state[id] = {
+      correct: res.value === 'correct',
+      score:   document.getElementById('admin-score').value.trim(),
+      notes:   document.getElementById('admin-notes').value.trim()
+    };
+    saveState(state);
+    renderAll(state);
+    document.getElementById('admin-score').value = '';
+    document.getElementById('admin-notes').value = '';
+    document.querySelectorAll('input[name="admin-result"]').forEach(function(r){ r.checked=false; });
+    document.getElementById('admin-game').value = '';
+  });
+
+  document.getElementById('admin-clear').addEventListener('click', function() {
+    var id = document.getElementById('admin-game').value;
+    if (!id) { alert('Select a game first.'); return; }
+    delete state[id];
+    saveState(state);
+    renderAll(state);
+  });
+}());
+</script>
 
 <!-- ════════════════════════════ METHODOLOGY ══════════════════════════ -->
 <section id="methodology">
