@@ -1010,6 +1010,86 @@
       .profiles-grid { grid-template-columns: 1fr; }
     }
 
+    /* ── Pool Size Optimizer ── */
+    .pool-size-selector {
+      display: flex; gap: 6px; flex-wrap: wrap; margin: 28px 0 32px;
+    }
+    .pool-btn {
+      flex: 1; min-width: 120px;
+      padding: 14px 10px;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+      color: var(--text-muted);
+      font-size: .85rem; font-weight: 600;
+      cursor: pointer; text-align: center;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .pool-btn:hover { border-color: var(--blue-dim); color: var(--text); }
+    .pool-btn.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(245,166,35,.08);
+    }
+    .pool-btn .pool-btn-label { display: block; font-size: .72rem; font-weight: 400; color: var(--text-dim); margin-top: 3px; }
+    .pool-btn.active .pool-btn-label { color: rgba(245,166,35,.7); }
+    .pool-panels { position: relative; min-height: 340px; }
+    .pool-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      position: absolute; inset: 0;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s ease;
+    }
+    .pool-panel.active { opacity: 1; pointer-events: auto; position: relative; inset: auto; }
+    .pool-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+    }
+    .pool-card-header {
+      display: flex; align-items: center; gap: 9px; margin-bottom: 10px;
+    }
+    .pool-card-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .pool-card-title { font-size: .88rem; font-weight: 700; color: var(--text); }
+    .pool-card p { font-size: .83rem; color: var(--text-muted); line-height: 1.65; margin: 0; }
+    .pool-insight {
+      margin-top: 28px;
+      background: rgba(245,166,35,.06);
+      border: 1px solid rgba(245,166,35,.25);
+      border-radius: var(--radius-lg);
+      padding: 18px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .pool-insight::before {
+      content: '';
+      position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+      background: var(--gold);
+    }
+    .pool-insight-label {
+      font-size: .72rem; font-weight: 800; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+    }
+    .pool-insight-text { font-size: .86rem; color: var(--text); line-height: 1.6; }
+    .pool-insight-wrap { position: relative; min-height: 54px; }
+    .pool-insight-content {
+      position: absolute; inset: 0;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s ease;
+    }
+    .pool-insight-content.active { opacity: 1; pointer-events: auto; position: relative; inset: auto; }
+    .pool-disclaimer {
+      margin-top: 18px; font-size: .73rem; color: var(--text-dim);
+      line-height: 1.5; font-style: italic;
+    }
+    @media (max-width: 640px) {
+      .pool-btn { min-width: 100%; flex: 0 0 100%; padding: 16px 12px; }
+      .pool-panel { grid-template-columns: 1fr; }
+    }
+
     /* ── Live Results Tracker ── */
     .results-header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
     .results-sub { font-size: .88rem; color: var(--text-muted); margin-top: 6px; }
@@ -1175,6 +1255,7 @@
       <li><a href="#methodology">Methodology</a></li>
       <li><a href="#torvik">T-Rank</a></li>
       <li><a href="#profiles">Profiles</a></li>
+      <li><a href="#optimizer">Optimizer</a></li>
       <li><a href="#final-four">Final Four</a></li>
       <li><a href="#upsets">Upsets</a></li>
       <li><a href="#roster">Roster</a></li>
@@ -2168,6 +2249,158 @@
     </div>
   </div>
 </section>
+
+<!-- ══════════════════════════ POOL OPTIMIZER ════════════════════════ -->
+<section id="optimizer">
+  <div class="container">
+    <div class="section-label">Strategy Tool</div>
+    <h2>Pool Size Optimizer</h2>
+    <p class="results-sub">Your optimal strategy changes based on how many people you're competing against</p>
+
+    <!-- Segmented size selector -->
+    <div class="pool-size-selector" role="group" aria-label="Pool size">
+      <button class="pool-btn" data-size="small"  aria-pressed="false">Small<span class="pool-btn-label">Under 25 entries</span></button>
+      <button class="pool-btn active" data-size="medium" aria-pressed="true">Medium<span class="pool-btn-label">25 – 100 entries</span></button>
+      <button class="pool-btn" data-size="large"  aria-pressed="false">Large<span class="pool-btn-label">100 – 500 entries</span></button>
+      <button class="pool-btn" data-size="massive" aria-pressed="false">Massive<span class="pool-btn-label">500 + entries</span></button>
+    </div>
+
+    <!-- Panels (one per size) -->
+    <div class="pool-panels" id="pool-panels">
+
+      <!-- SMALL -->
+      <div class="pool-panel" data-panel="small">
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">🏆</span><span class="pool-card-title">Champion Strategy</span></div>
+          <p>Arizona or Michigan — both pass all filters. Pick the one you trust more. Differentiation matters less at this size.</p>
+        </div>
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">🎯</span><span class="pool-card-title">Final Four Strategy</span></div>
+          <p>Ride chalk — Arizona, Michigan, Houston, UConn. These are the four best teams. Differentiation comes from upset picks, not Final Four deviations.</p>
+        </div>
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">⚡</span><span class="pool-card-title">Key Upset Picks</span></div>
+          <p>Iowa over Clemson (9/8) — clearest statistical edge in the bracket. Carter Welling's ACL tear makes Clemson even weaker. Safe upset pick at any pool size.</p>
+        </div>
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">🚫</span><span class="pool-card-title">Picks to Avoid</span></div>
+          <p>Duke as champion — most owned pick in pools, injury-compromised. Alabama deep run — Holloway suspended, defense was already 101st KenPom.</p>
+        </div>
+      </div>
+
+      <!-- MEDIUM -->
+      <div class="pool-panel active" data-panel="medium">
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">🏆</span><span class="pool-card-title">Champion Strategy</span></div>
+          <p>Arizona — underowned at ~14% vs Duke's 38%. Equivalent talent, better pool equity. This is the optimal pick at medium pool size.</p>
+        </div>
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">🎯</span><span class="pool-card-title">Final Four Strategy</span></div>
+          <p>Houston over Florida is the key contrarian Final Four pick. Florida is heavily owned as the South rep. Houston's home region advantage (Toyota Center) is consistently underappreciated by casual bettors.</p>
+        </div>
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">⚡</span><span class="pool-card-title">Key Upset Picks</span></div>
+          <p>Iowa over Clemson + Kansas over Duke (Sweet 16) — the Duke upset is the highest pool-equity pick. Foster is out. This separates you from 25–30% of all brackets immediately.</p>
+        </div>
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">🚫</span><span class="pool-card-title">Picks to Avoid</span></div>
+          <p>Same as small, plus: avoid any team with a major injury as your deep run pick. Illinois to the Final Four — offense-only profile fails directly against Houston's elite defensive pressure.</p>
+        </div>
+      </div>
+
+      <!-- LARGE -->
+      <div class="pool-panel" data-panel="large">
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">🏆</span><span class="pool-card-title">Champion Strategy</span></div>
+          <p>Arizona — same reasoning as medium but even more important. At 100+ entries, Duke owners will bust together, creating a massive separation opportunity for Arizona pickers.</p>
+        </div>
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">🎯</span><span class="pool-card-title">Final Four Strategy</span></div>
+          <p>Same as medium, but also consider: UConn surviving the brutal East bracket is underowned. Most large pools have Michigan State or Duke making it out of the East — neither is likely.</p>
+        </div>
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">⚡</span><span class="pool-card-title">Key Upset Picks</span></div>
+          <p>All medium picks plus BYU over Gonzaga — Huff confirmed out for first two rounds, Dybantsa is a one-man band against a weakened Gonzaga offense. Very low ownership on this call.</p>
+        </div>
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">🚫</span><span class="pool-card-title">Picks to Avoid</span></div>
+          <p>Same as medium, plus: avoid Michigan State to the Final Four — their path now goes through UConn, not a weakened Duke. Most pools built this pick around Duke being the obstacle.</p>
+        </div>
+      </div>
+
+      <!-- MASSIVE -->
+      <div class="pool-panel" data-panel="massive">
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">🏆</span><span class="pool-card-title">Champion Strategy</span></div>
+          <p>Arizona still optimal, but consider whether Michigan gives you even more separation. In a 500+ pool, Michigan at lower ownership than Arizona could be the sharper play — especially given their dominant interior edge.</p>
+        </div>
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">🎯</span><span class="pool-card-title">Final Four Strategy</span></div>
+          <p>In a massive pool you need at least 2 contrarian Final Four picks. Houston + UConn gives you the best combination of legitimate teams with genuinely low public ownership.</p>
+        </div>
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">⚡</span><span class="pool-card-title">Key Upset Picks</span></div>
+          <p>All large picks plus Texas A&amp;M over Saint Mary's — in a massive pool, even Round of 32 upsets create meaningful separation. A&amp;M's 9 seniors and 87.7 PPG against a cold Saint Mary's squad is genuine statistical value.</p>
+        </div>
+        <div class="pool-card">
+          <div class="pool-card-header"><span class="pool-card-icon">🚫</span><span class="pool-card-title">Picks to Avoid</span></div>
+          <p>All of the above, plus: avoid Gonzaga deep run — even if Huff returns he hasn't played in 67 days. The timing is too uncertain to build a deep run around in a field where you need every edge.</p>
+        </div>
+      </div>
+
+    </div><!-- /pool-panels -->
+
+    <!-- Key Insight callout -->
+    <div class="pool-insight">
+      <div class="pool-insight-label">💡 Key Insight</div>
+      <div class="pool-insight-wrap" id="pool-insight-wrap">
+        <div class="pool-insight-content" data-insight="small">
+          <span class="pool-insight-text">In a small pool, process beats cleverness. Pick the best teams, take 1–2 smart upset picks, and let variance do the work.</span>
+        </div>
+        <div class="pool-insight-content active" data-insight="medium">
+          <span class="pool-insight-text">The sweet spot. Arizona as champion + Kansas over Duke in the Sweet 16 is the single highest-value combination in a medium pool. Everything else is secondary.</span>
+        </div>
+        <div class="pool-insight-content" data-insight="large">
+          <span class="pool-insight-text">You need to be right about something most people are wrong about. Kansas over Duke is your anchor. Build everything else around surviving that call.</span>
+        </div>
+        <div class="pool-insight-content" data-insight="massive">
+          <span class="pool-insight-text">You need multiple contrarian picks to hit. Target 2–3 upset calls with genuine statistical backing — not just gut feeling. Our picks give you 6 to choose from.</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="pool-disclaimer">Pool strategy recommendations are based on estimated public pick distributions and statistical analysis. Actual ownership percentages vary by platform.</p>
+  </div>
+</section>
+
+<script>
+(function () {
+  var btns     = document.querySelectorAll('.pool-btn');
+  var panels   = document.querySelectorAll('.pool-panel');
+  var insights = document.querySelectorAll('.pool-insight-content');
+
+  btns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var size = this.dataset.size;
+
+      // Buttons
+      btns.forEach(function (b) { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+      this.classList.add('active');
+      this.setAttribute('aria-pressed','true');
+
+      // Panels — fade out all, fade in target
+      panels.forEach(function (p) { p.classList.remove('active'); });
+      var target = document.querySelector('.pool-panel[data-panel="' + size + '"]');
+      if (target) target.classList.add('active');
+
+      // Insights
+      insights.forEach(function (i) { i.classList.remove('active'); });
+      var ins = document.querySelector('.pool-insight-content[data-insight="' + size + '"]');
+      if (ins) ins.classList.add('active');
+    });
+  });
+}());
+</script>
 
 <!-- ════════════════════════════ FINAL FOUR ═══════════════════════════ -->
 <section id="final-four">
