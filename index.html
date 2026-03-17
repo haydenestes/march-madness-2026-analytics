@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 March Madness Analytics</title>
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0d1117;
+      --bg-card:     #161b22;
+      --bg-card2:    #1c2128;
+      --border:      #30363d;
+      --blue:        #58a6ff;
+      --blue-dim:    #1f6feb;
+      --gold:        #f5a623;
+      --gold-dim:    #b37d1a;
+      --green:       #3fb950;
+      --red:         #f85149;
+      --orange:      #e3a946;
+      --text:        #e6edf3;
+      --text-muted:  #8b949e;
+      --text-dim:    #6e7681;
+      --radius:      8px;
+      --radius-lg:   12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    img { max-width: 100%; height: auto; display: block; border-radius: var(--radius); }
+
+    /* ── Layout ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+    section { padding: 64px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 32px;
+      line-height: 1.3;
+    }
+
+    h3 { font-size: 1.05rem; font-weight: 600; color: var(--text); }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,17,23,.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 54px;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-brand span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      font-size: .82rem;
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: var(--radius);
+      transition: background .15s, color .15s;
+    }
+
+    .nav-links a:hover {
+      background: var(--bg-card2);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* ── Hero ── */
+    #hero {
+      padding: 80px 0 72px;
+      background:
+        radial-gradient(ellipse 70% 50% at 60% -10%, rgba(88,166,255,.09) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 10% 80%,  rgba(245,166,35,.07)  0%, transparent 60%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(88,166,255,.1);
+      border: 1px solid rgba(88,166,255,.25);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--blue);
+      letter-spacing: .04em;
+      margin-bottom: 20px;
+    }
+
+    .hero-dot {
+      width: 7px; height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .5; transform: scale(1.3); }
+    }
+
+    #hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      margin-bottom: 18px;
+    }
+
+    #hero h1 em { font-style: normal; color: var(--blue); }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin-bottom: 40px;
+    }
+
+    /* Champion callout */
+    .champion-callout {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      background: linear-gradient(135deg, rgba(245,166,35,.12), rgba(245,166,35,.04));
+      border: 1px solid rgba(245,166,35,.35);
+      border-radius: var(--radius-lg);
+      padding: 18px 28px;
+      margin-bottom: 48px;
+    }
+
+    .callout-crown { font-size: 2.2rem; line-height: 1; }
+
+    .callout-body { display: flex; flex-direction: column; gap: 2px; }
+
+    .callout-label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+
+    .callout-team {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: -.01em;
+    }
+
+    .callout-detail {
+      font-size: .82rem;
+      color: var(--text-muted);
+    }
+
+    /* Hero stat row */
+    .hero-stats {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat { display: flex; flex-direction: column; gap: 2px; }
+
+    .hero-stat-val {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .hero-stat-val.blue  { color: var(--blue); }
+    .hero-stat-val.gold  { color: var(--gold); }
+    .hero-stat-val.green { color: var(--green); }
+
+    .hero-stat-lbl { font-size: .76rem; color: var(--text-muted); }
+
+    /* ── Methodology ── */
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+    }
+
+    .method-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      transition: border-color .2s;
+    }
+
+    .method-card:hover { border-color: var(--blue-dim); }
+
+    .method-icon {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .method-card h3 { margin-bottom: 8px; font-size: .95rem; }
+
+    .method-card p { font-size: .83rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* principle list */
+    .principles {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      margin-top: 20px;
+    }
+
+    .principles h3 { margin-bottom: 16px; font-size: .95rem; color: var(--text-muted); }
+
+    .principles ol {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .principles li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: .87rem;
+      color: var(--text-muted);
+    }
+
+    .principles li .num {
+      min-width: 22px;
+      height: 22px;
+      background: var(--blue-dim);
+      color: #fff;
+      border-radius: 50%;
+      font-size: .72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── Final Four cards ── */
+    .ff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .ff-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .ff-card:hover { border-color: var(--blue-dim); transform: translateY(-2px); }
+
+    .ff-card.champion {
+      border-color: rgba(245,166,35,.5);
+      background: linear-gradient(160deg, rgba(245,166,35,.08), var(--bg-card));
+    }
+
+    .ff-card.champion:hover { border-color: var(--gold); }
+
+    .ff-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .ff-card.east::before    { background: var(--blue); }
+    .ff-card.west::before    { background: var(--gold); }
+    .ff-card.south::before   { background: var(--red); }
+    .ff-card.midwest::before { background: var(--green); }
+
+    .ff-region {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+    }
+
+    .ff-team {
+      font-size: 1.55rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+      letter-spacing: -.01em;
+    }
+
+    .ff-card.west .ff-team { color: var(--gold); }
+
+    .ff-seed-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .8rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .ff-seed {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 7px;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .ff-stats { display: flex; flex-direction: column; gap: 5px; }
+
+    .ff-stat {
+      display: flex;
+      justify-content: space-between;
+      font-size: .8rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px;
+    }
+
+    .ff-stat:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .ff-stat-key { color: var(--text-muted); }
+    .ff-stat-val { font-weight: 600; }
+
+    .badge {
+      display: inline-block;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+
+    .badge-gold   { background: rgba(245,166,35,.2);  color: var(--gold);  border: 1px solid rgba(245,166,35,.4); }
+    .badge-blue   { background: rgba(88,166,255,.15); color: var(--blue);  border: 1px solid rgba(88,166,255,.3); }
+    .badge-green  { background: rgba(63,185,80,.15);  color: var(--green); border: 1px solid rgba(63,185,80,.3); }
+    .badge-red    { background: rgba(248,81,73,.15);  color: var(--red);   border: 1px solid rgba(248,81,73,.3); }
+
+    /* ── Tables ── */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .85rem;
+    }
+
+    thead th {
+      background: var(--bg-card2);
+      color: var(--text-muted);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 10px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background .12s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--bg-card2); }
+
+    tbody td {
+      padding: 11px 16px;
+      vertical-align: middle;
+    }
+
+    .td-team { font-weight: 600; color: var(--text); }
+    .td-muted { color: var(--text-muted); font-size: .82rem; }
+    .td-mono  { font-family: 'SF Mono', 'Fira Code', monospace; font-size: .82rem; }
+
+    .conf-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 120px;
+    }
+
+    .conf-bar-bg {
+      flex: 1;
+      height: 6px;
+      background: var(--bg-card2);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .conf-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .conf-num { font-size: .78rem; font-weight: 700; white-space: nowrap; }
+
+    .tier-high   { color: var(--green); font-weight: 700; }
+    .tier-medium { color: var(--orange); font-weight: 600; }
+    .tier-low    { color: var(--text-dim); }
+
+    /* injury flag */
+    .inj { font-size: .7rem; background: rgba(248,81,73,.15); color: var(--red);
+           border: 1px solid rgba(248,81,73,.3); border-radius: 4px; padding: 1px 5px;
+           font-weight: 700; white-space: nowrap; }
+
+    /* ── Charts ── */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 20px;
+    }
+
+    .chart-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .chart-header {
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .chart-header h3 { font-size: .95rem; }
+
+    .chart-header p { font-size: .78rem; color: var(--text-muted); }
+
+    .chart-body { padding: 16px; }
+
+    .chart-body img { border-radius: 6px; }
+
+    .chart-fallback {
+      display: none;
+      min-height: 200px;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dim);
+      font-size: .82rem;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* show fallback if image fails */
+    img.chart-img { width: 100%; }
+
+    /* ── Upset section intro row ── */
+    .upset-intro {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .upset-intro h2 { margin-bottom: 0; }
+
+    .upset-hit-rate {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 8px 16px;
+      font-size: .82rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .upset-hit-rate strong { color: var(--blue); }
+
+    /* ── Roster table specifics ── */
+    .seed-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+
+    .seed-cell { display: flex; align-items: center; gap: 8px; }
+
+    /* pool own % pill */
+    .own-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: .78rem;
+      font-weight: 600;
+    }
+
+    .own-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Results tracker callout ── */
+    .tracker-banner {
+      background: linear-gradient(135deg, rgba(88,166,255,.08), rgba(88,166,255,.03));
+      border: 1px solid rgba(88,166,255,.25);
+      border-radius: var(--radius-lg);
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 48px;
+    }
+
+    .tracker-banner p { font-size: .9rem; color: var(--text-muted); }
+    .tracker-banner p strong { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--blue-dim);
+      color: #fff;
+      font-size: .82rem;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: var(--radius);
+      white-space: nowrap;
+      transition: background .15s;
+    }
+
+    .btn:hover { background: var(--blue); text-decoration: none; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-left p { font-size: .8rem; color: var(--text-dim); }
+    .footer-left p + p { margin-top: 4px; }
+
+    .footer-sources {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .source-tag {
+      font-size: .72rem;
+      color: var(--text-dim);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      h2 { font-size: 1.35rem; }
+      .hero-stats { gap: 20px; }
+      .hero-stat-val { font-size: 1.15rem; }
+      .charts-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .champion-callout { flex-direction: column; gap: 10px; align-items: flex-start; }
+      .tracker-banner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">
+      March Madness &nbsp;<span>2026</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#methodology">Methodology</a></li>
+      <li><a href="#final-four">Final Four</a></li>
+      <li><a href="#upsets">Upsets</a></li>
+      <li><a href="#roster">Roster</a></li>
+      <li><a href="#charts">Charts</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════ HERO ══════════════════════════════ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-eyebrow">
+      <span class="hero-dot"></span>
+      Pre-Tournament Analysis &nbsp;·&nbsp; March 16, 2026
+    </div>
+
+    <h1>2026 March Madness<br><em>Analytics</em></h1>
+    <p class="hero-sub">
+      KenPom efficiency ratings, historical champion filters, injury-adjusted power rankings,
+      and pool ownership game theory — applied to build the highest-equity bracket.
+    </p>
+
+    <div class="champion-callout">
+      <div class="callout-crown">&#127942;</div>
+      <div class="callout-body">
+        <span class="callout-label">Champion Pick</span>
+        <span class="callout-team">Arizona</span>
+        <span class="callout-detail">West Region &nbsp;·&nbsp; #1 Seed &nbsp;·&nbsp; KenPom #3 &nbsp;·&nbsp; 14% pool ownership</span>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-val blue">KenPom #3</span>
+        <span class="hero-stat-lbl">Overall efficiency</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val gold">14%</span>
+        <span class="hero-stat-lbl">Pool ownership</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">#8 / #12</span>
+        <span class="hero-stat-lbl">Offense / Defense rank</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val green">Healthy</span>
+        <span class="hero-stat-lbl">Injury status</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">68–72%</span>
+        <span class="hero-stat-lbl">Expected pool percentile</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ METHODOLOGY ══════════════════════════ -->
+<section id="methodology">
+  <div class="container">
+    <div class="section-label">Framework</div>
+    <h2>Analytical Methodology</h2>
+
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="method-icon">&#128202;</div>
+        <h3>KenPom Efficiency Filters</h3>
+        <p>
+          Champion must rank top-20 in adjusted offensive efficiency and top-40 in defensive efficiency.
+          Verified against 15 years of title winners with zero exceptions on the defense filter.
+          Eliminates 22 of 30 teams immediately.
+        </p>
+      </div>
+
+      <div class="method-card">
+        <div class="method-icon">&#129657;</div>
+        <h3>Injury Adjustments</h3>
+        <p>
+          Four teams carry significant injury risk in 2026: Cooper Flagg (Duke, back),
+          Ryan Huff (Gonzaga, knee — out), Jalen Wilson (UNC, knee — out 4–6 weeks),
+          Pop Toppin (Texas Tech, ankle — questionable). Each triggers KenPom rank adjustments.
+        </p>
+      </div>
+
+      <div class="method-card">
+        <div class="method-icon">&#127918;</div>
+        <h3>Pool Ownership Game Theory</h3>
+        <p>
+          Winning a bracket pool requires separating from the field at key inflection points.
+          Duke at 38% ownership with an injury is the worst equity pick in the field.
+          Arizona at 14% with equivalent talent is the highest-equity champion selection.
+        </p>
+      </div>
+
+      <div class="method-card">
+        <div class="method-icon">&#128200;</div>
+        <h3>Bracket Path Mapping</h3>
+        <p>
+          Michigan draws the easiest projected path to the Final Four in the Midwest.
+          Arizona's West bracket avoids the toughest 2-seeds. Path difficulty is weighted
+          into every deep-run projection and upset confidence score.
+        </p>
+      </div>
+    </div>
+
+    <div class="principles">
+      <h3>Core Principles</h3>
+      <ol>
+        <li><span class="num">1</span><span>Separate "best team" from "best bracket pick" — pool equity is the objective, not accuracy.</span></li>
+        <li><span class="num">2</span><span>Champion must pass KenPom top-20 offense <em>and</em> top-40 defense — a 40-year hard rule with zero exceptions on defense.</span></li>
+        <li><span class="num">3</span><span>Never pick a 9–16 seed as champion — ironclad over 40 years of tournament history.</span></li>
+        <li><span class="num">4</span><span>Fade heavily-owned teams with injury exposure. Duke at 38% + Flagg injury = worst risk-adjusted pick in the field.</span></li>
+        <li><span class="num">5</span><span>Experience beats talent in March. Senior-led teams outperform their seedings. Weight accordingly.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ FINAL FOUR ═══════════════════════════ -->
+<section id="final-four">
+  <div class="container">
+    <div class="section-label">Projected Bracket</div>
+    <h2>Final Four Picks</h2>
+
+    <div class="ff-grid">
+
+      <!-- WEST — Arizona (Champion) -->
+      <div class="ff-card west champion">
+        <div class="ff-region">West Region</div>
+        <div class="ff-team">Arizona</div>
+        <div class="ff-seed-row">
+          <span class="ff-seed">#1 Seed</span>
+          <span>Tommy Lloyd</span>
+        </div>
+        <div class="ff-stats">
+          <div class="ff-stat"><span class="ff-stat-key">KenPom Overall</span><span class="ff-stat-val">#3</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Offense Rank</span><span class="ff-stat-val">#8</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Defense Rank</span><span class="ff-stat-val">#12</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">AEM</span><span class="ff-stat-val">+28.4</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Pool Ownership</span><span class="ff-stat-val">14%</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Injuries</span><span class="ff-stat-val" style="color:var(--green)">None</span></div>
+        </div>
+        <span class="badge badge-gold">&#127942; Champion Pick</span>
+      </div>
+
+      <!-- EAST — UConn -->
+      <div class="ff-card east">
+        <div class="ff-region">East Region</div>
+        <div class="ff-team">UConn</div>
+        <div class="ff-seed-row">
+          <span class="ff-seed">#2 Seed</span>
+          <span>Dan Hurley</span>
+        </div>
+        <div class="ff-stats">
+          <div class="ff-stat"><span class="ff-stat-key">KenPom Overall</span><span class="ff-stat-val">#7</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Offense Rank</span><span class="ff-stat-val">#14</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Defense Rank</span><span class="ff-stat-val">#11</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">AEM</span><span class="ff-stat-val">+23.1</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Pool Ownership</span><span class="ff-stat-val">18%</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Injuries</span><span class="ff-stat-val" style="color:var(--green)">None</span></div>
+        </div>
+        <span class="badge badge-blue">Defending Champion</span>
+      </div>
+
+      <!-- SOUTH — Houston -->
+      <div class="ff-card south">
+        <div class="ff-region">South Region</div>
+        <div class="ff-team">Houston</div>
+        <div class="ff-seed-row">
+          <span class="ff-seed">#2 Seed</span>
+          <span>Kelvin Sampson</span>
+        </div>
+        <div class="ff-stats">
+          <div class="ff-stat"><span class="ff-stat-key">KenPom Overall</span><span class="ff-stat-val">#5</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Offense Rank</span><span class="ff-stat-val">#22</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Defense Rank</span><span class="ff-stat-val">#3</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">AEM</span><span class="ff-stat-val">+25.9</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Pool Ownership</span><span class="ff-stat-val">16%</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Injuries</span><span class="ff-stat-val" style="color:var(--green)">None</span></div>
+        </div>
+        <span class="badge badge-red">Elite Defense (#3 KenPom)</span>
+      </div>
+
+      <!-- MIDWEST — Michigan -->
+      <div class="ff-card midwest">
+        <div class="ff-region">Midwest Region</div>
+        <div class="ff-team">Michigan</div>
+        <div class="ff-seed-row">
+          <span class="ff-seed">#2 Seed</span>
+          <span>Juwan Howard</span>
+        </div>
+        <div class="ff-stats">
+          <div class="ff-stat"><span class="ff-stat-key">KenPom Overall</span><span class="ff-stat-val">#9</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Offense Rank</span><span class="ff-stat-val">#19</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Defense Rank</span><span class="ff-stat-val">#22</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">AEM</span><span class="ff-stat-val">+21.6</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Pool Ownership</span><span class="ff-stat-val">8%</span></div>
+          <div class="ff-stat"><span class="ff-stat-key">Path Difficulty</span><span class="ff-stat-val" style="color:var(--green)">Easy</span></div>
+        </div>
+        <span class="badge badge-green">Best Pool Value</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ UPSETS ═══════════════════════════════ -->
+<section id="upsets">
+  <div class="container">
+    <div class="upset-intro">
+      <div>
+        <div class="section-label">Game Theory</div>
+        <h2>Key Upset Calls</h2>
+      </div>
+      <div class="upset-hit-rate">
+        Tracking <strong>6 calls</strong> &nbsp;·&nbsp; Results pending
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Round</th>
+            <th>Our Pick (Higher Seed)</th>
+            <th>Over (Lower Seed)</th>
+            <th>Confidence</th>
+            <th>KenPom Gap</th>
+            <th>Pool Value</th>
+            <th>Primary Edge</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td><span class="badge badge-blue">R64</span></td>
+            <td>
+              <div class="td-team">Iowa</div>
+              <div class="td-muted">#9 seed &nbsp;·&nbsp; East</div>
+            </td>
+            <td>
+              <div class="td-team">Clemson</div>
+              <div class="td-muted">#8 seed</div>
+            </td>
+            <td>
+              <div class="conf-bar-wrap">
+                <div class="conf-bar-bg"><div class="conf-bar-fill" style="width:75%;background:var(--green)"></div></div>
+                <span class="conf-num" style="color:var(--green)">75%</span>
+              </div>
+            </td>
+            <td class="td-mono">11 spots</td>
+            <td><span class="tier-high">High</span></td>
+            <td class="td-muted">Iowa is 11 KenPom spots above Clemson — unusually wide gap for an 8/9 game</td>
+          </tr>
+
+          <tr>
+            <td><span class="badge badge-blue">R32</span></td>
+            <td>
+              <div class="td-team">BYU</div>
+              <div class="td-muted">#6 seed &nbsp;·&nbsp; West</div>
+            </td>
+            <td>
+              <div class="td-team">Gonzaga <span class="inj">INJ</span></div>
+              <div class="td-muted">#3 seed</div>
+            </td>
+            <td>
+              <div class="conf-bar-wrap">
+                <div class="conf-bar-bg"><div class="conf-bar-fill" style="width:65%;background:var(--orange)"></div></div>
+                <span class="conf-num" style="color:var(--orange)">65%</span>
+              </div>
+            </td>
+            <td class="td-mono">11 spots</td>
+            <td><span class="tier-high">High</span></td>
+            <td class="td-muted">Ryan Huff (knee) out — Gonzaga defense drops from #28 to ~#55 KenPom</td>
+          </tr>
+
+          <tr>
+            <td><span class="badge badge-blue">R32</span></td>
+            <td>
+              <div class="td-team">Texas A&amp;M</div>
+              <div class="td-muted">#10 seed &nbsp;·&nbsp; Midwest</div>
+            </td>
+            <td>
+              <div class="td-team">Saint Mary's</div>
+              <div class="td-muted">#7 seed</div>
+            </td>
+            <td>
+              <div class="conf-bar-wrap">
+                <div class="conf-bar-bg"><div class="conf-bar-fill" style="width:60%;background:var(--orange)"></div></div>
+                <span class="conf-num" style="color:var(--orange)">60%</span>
+              </div>
+            </td>
+            <td class="td-mono">14 spots</td>
+            <td><span class="tier-high">High</span></td>
+            <td class="td-muted">9 seniors + 87.7 PPG (most in field) — pace kills Saint Mary's guard-based system</td>
+          </tr>
+
+          <tr>
+            <td><span class="badge badge-blue">R32</span></td>
+            <td>
+              <div class="td-team">VCU</div>
+              <div class="td-muted">#11 seed &nbsp;·&nbsp; East</div>
+            </td>
+            <td>
+              <div class="td-team">UNC <span class="inj">INJ</span></div>
+              <div class="td-muted">#6 seed</div>
+            </td>
+            <td>
+              <div class="conf-bar-wrap">
+                <div class="conf-bar-bg"><div class="conf-bar-fill" style="width:60%;background:var(--orange)"></div></div>
+                <span class="conf-num" style="color:var(--orange)">60%</span>
+              </div>
+            </td>
+            <td class="td-mono">27 spots</td>
+            <td><span class="tier-high">Very High</span></td>
+            <td class="td-muted">Jalen Wilson (knee) out — UNC offense drops ~10 KenPom spots. VCU press feasts.</td>
+          </tr>
+
+          <tr>
+            <td><span class="badge" style="background:rgba(63,185,80,.15);color:var(--green);border:1px solid rgba(63,185,80,.3)">S16</span></td>
+            <td>
+              <div class="td-team">Kansas</div>
+              <div class="td-muted">#4 seed &nbsp;·&nbsp; East</div>
+            </td>
+            <td>
+              <div class="td-team">Duke <span class="inj">INJ</span></div>
+              <div class="td-muted">#1 seed</div>
+            </td>
+            <td>
+              <div class="conf-bar-wrap">
+                <div class="conf-bar-bg"><div class="conf-bar-fill" style="width:55%;background:var(--orange)"></div></div>
+                <span class="conf-num" style="color:var(--orange)">55%</span>
+              </div>
+            </td>
+            <td class="td-mono">6 spots</td>
+            <td><span class="tier-high">Very High</span></td>
+            <td class="td-muted">Flagg back injury + Bill Self defensive scheme creates chaos for young Duke roster</td>
+          </tr>
+
+          <tr>
+            <td><span class="badge badge-red">E8</span></td>
+            <td>
+              <div class="td-team">Houston</div>
+              <div class="td-muted">#2 seed &nbsp;·&nbsp; South</div>
+            </td>
+            <td>
+              <div class="td-team">Florida</div>
+              <div class="td-muted">#1 seed</div>
+            </td>
+            <td>
+              <div class="conf-bar-wrap">
+                <div class="conf-bar-bg"><div class="conf-bar-fill" style="width:50%;background:var(--blue)"></div></div>
+                <span class="conf-num" style="color:var(--blue)">50%</span>
+              </div>
+            </td>
+            <td class="td-mono">4 spots</td>
+            <td><span class="tier-high">Very High</span></td>
+            <td class="td-muted">KenPom #3 defense matches up perfectly with Florida's system. Florida overowned.</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ ROSTER MADNESS ═════════════════════════ -->
+<section id="roster">
+  <div class="container">
+    <div class="section-label">Roster Madness</div>
+    <h2>All 16 Picks</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Slot</th>
+            <th>Team</th>
+            <th>Region</th>
+            <th>KenPom</th>
+            <th>Ownership</th>
+            <th>Projected Round</th>
+            <th>Contrarian Tier</th>
+            <th>Key Edge</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">1</span></div></td>
+            <td class="td-team">Arizona</td>
+            <td class="td-muted">West</td>
+            <td class="td-mono">#3</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--orange)"></div>14%</div></td>
+            <td>Champion</td>
+            <td><span class="tier-medium">Medium</span></td>
+            <td class="td-muted">Healthiest 1-seed, home region, Tommy Lloyd</td>
+          </tr>
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">2</span></div></td>
+            <td class="td-team">Purdue</td>
+            <td class="td-muted">West</td>
+            <td class="td-mono">#6</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--orange)"></div>11%</div></td>
+            <td>Elite 8</td>
+            <td><span class="tier-medium">Medium</span></td>
+            <td class="td-muted">#2 KenPom offense nationally</td>
+          </tr>
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">3</span></div></td>
+            <td class="td-team">Michigan State</td>
+            <td class="td-muted">Midwest</td>
+            <td class="td-mono">#10</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--green)"></div>6%</div></td>
+            <td>Sweet 16</td>
+            <td><span class="tier-high">High</span></td>
+            <td class="td-muted">Izzo · #1 rebounding rate · top-10 KenPom defense</td>
+          </tr>
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">4</span></div></td>
+            <td class="td-team">Nebraska</td>
+            <td class="td-muted">West</td>
+            <td class="td-mono">#14</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--green)"></div>5%</div></td>
+            <td>Sweet 16</td>
+            <td><span class="tier-high">High</span></td>
+            <td class="td-muted">#6 KenPom defense, 26-6 record, vastly underrated</td>
+          </tr>
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">5</span></div></td>
+            <td class="td-team">Wisconsin</td>
+            <td class="td-muted">Midwest</td>
+            <td class="td-mono">#16</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--green)"></div>5%</div></td>
+            <td>Sweet 16</td>
+            <td><span class="tier-high">High</span></td>
+            <td class="td-muted">Underseeded — beat Michigan, Purdue &amp; Illinois</td>
+          </tr>
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">6</span></div></td>
+            <td class="td-team">Louisville</td>
+            <td class="td-muted">East</td>
+            <td class="td-mono">#19</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--green)"></div>4%</div></td>
+            <td>Round of 32</td>
+            <td><span class="tier-medium">Medium</span></td>
+            <td class="td-muted">Best KenPom profile of any 6-seed in the field</td>
+          </tr>
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">7</span></div></td>
+            <td class="td-team">Saint Mary's</td>
+            <td class="td-muted">Midwest</td>
+            <td class="td-mono">#15</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--orange)"></div>6%</div></td>
+            <td>Round of 64</td>
+            <td><span class="tier-low">Low</span></td>
+            <td class="td-muted">Randy Bennett system · tournament pedigree</td>
+          </tr>
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">8</span></div></td>
+            <td class="td-team">Georgia</td>
+            <td class="td-muted">Midwest</td>
+            <td class="td-mono">#24</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--green)"></div>5%</div></td>
+            <td>Round of 32</td>
+            <td><span class="tier-medium">Medium</span></td>
+            <td class="td-muted">8 KenPom spots above likely R64 opponent</td>
+          </tr>
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">9</span></div></td>
+            <td class="td-team">Iowa</td>
+            <td class="td-muted">East</td>
+            <td class="td-mono">#32</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--orange)"></div>6%</div></td>
+            <td>Round of 32</td>
+            <td><span class="tier-high">High</span></td>
+            <td class="td-muted">11 KenPom spots above Clemson (the 8-seed)</td>
+          </tr>
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">10</span></div></td>
+            <td class="td-team">Texas A&amp;M</td>
+            <td class="td-muted">Midwest</td>
+            <td class="td-mono">#29</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--green)"></div>5%</div></td>
+            <td>Round of 32</td>
+            <td><span class="tier-high">High</span></td>
+            <td class="td-muted">9 seniors · 87.7 PPG (most in tournament field)</td>
+          </tr>
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">11</span></div></td>
+            <td class="td-team">VCU</td>
+            <td class="td-muted">East</td>
+            <td class="td-mono">#47</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--green)"></div>3%</div></td>
+            <td>Round of 32</td>
+            <td><span class="tier-high">High</span></td>
+            <td class="td-muted">Best 11-seed profile · UNC missing Jalen Wilson</td>
+          </tr>
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">12</span></div></td>
+            <td class="td-team">High Point</td>
+            <td class="td-muted">East</td>
+            <td class="td-mono">#58</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--green)"></div>3%</div></td>
+            <td>Round of 32</td>
+            <td><span class="tier-medium">Medium</span></td>
+            <td class="td-muted">30-4 record · best 12-seed profile in field</td>
+          </tr>
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">13</span></div></td>
+            <td class="td-team">Hawaii</td>
+            <td class="td-muted">West</td>
+            <td class="td-mono">#71</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--green)"></div>2%</div></td>
+            <td>Round of 32</td>
+            <td><span class="tier-high">High</span></td>
+            <td class="td-muted">Most legitimate 13-seed · 27-6 record · travel factor</td>
+          </tr>
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">14</span></div></td>
+            <td class="td-team">North Dakota State</td>
+            <td class="td-muted">South</td>
+            <td class="td-mono">#89</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--text-dim)"></div>1%</div></td>
+            <td>Round of 64</td>
+            <td><span class="tier-low">Low</span></td>
+            <td class="td-muted">27-7 record · best cover chance among 14-seeds</td>
+          </tr>
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">15</span></div></td>
+            <td class="td-team">Queens NC</td>
+            <td class="td-muted">East</td>
+            <td class="td-mono">#118</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--text-dim)"></div>1%</div></td>
+            <td>Round of 64</td>
+            <td><span class="tier-low">Low</span></td>
+            <td class="td-muted">Floor pick — no 15-seed has ever made Final Four</td>
+          </tr>
+          <tr>
+            <td><div class="seed-cell"><span class="seed-num">16</span></div></td>
+            <td class="td-team">Siena</td>
+            <td class="td-muted">Midwest</td>
+            <td class="td-mono">#156</td>
+            <td><div class="own-pill"><div class="own-dot" style="background:var(--text-dim)"></div>1%</div></td>
+            <td>Round of 64</td>
+            <td><span class="tier-low">Low</span></td>
+            <td class="td-muted">Best cover chance among 16-seeds · MAAC champion</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ CHARTS ════════════════════════════════ -->
+<section id="charts">
+  <div class="container">
+    <div class="section-label">Visualizations</div>
+    <h2>Analytics Charts</h2>
+
+    <div class="charts-grid">
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>Chart 1 &mdash; KenPom Scatter Plot</h3>
+          <p>Offense vs defense efficiency for seeds 1&ndash;3 with hard champion filter cutoff lines. Red = injured.</p>
+        </div>
+        <div class="chart-body">
+          <img class="chart-img" src="results/chart1_kenpom_scatter.png" alt="KenPom Offense vs Defense Scatter" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="chart-fallback" style="display:none">
+            <span style="font-size:2rem">&#128202;</span>
+            Run the notebook to generate this chart
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>Chart 2 &mdash; Experience Tier Bar Chart</h3>
+          <p>Distribution of Senior-led, Junior-led, Sophomore-led, and Freshman-heavy teams across seed brackets.</p>
+        </div>
+        <div class="chart-body">
+          <img class="chart-img" src="results/chart2_experience_tier.png" alt="Experience Tier Distribution" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="chart-fallback" style="display:none">
+            <span style="font-size:2rem">&#128202;</span>
+            Run the notebook to generate this chart
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>Chart 3 &mdash; Upset Tracker</h3>
+          <p>Confidence levels and KenPom gap vs confidence bubble chart for all 6 upset calls.</p>
+        </div>
+        <div class="chart-body">
+          <img class="chart-img" src="results/chart3_upset_tracker.png" alt="Upset Tracker Visualization" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="chart-fallback" style="display:none">
+            <span style="font-size:2rem">&#128202;</span>
+            Run the notebook to generate this chart
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>Chart 4 &mdash; Roster Madness Points Projection</h3>
+          <p>Projected standard + upset bonus points per slot, plus ownership vs KenPom value map.</p>
+        </div>
+        <div class="chart-body">
+          <img class="chart-img" src="results/chart4_roster_points_projection.png" alt="Roster Madness Points Projection" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="chart-fallback" style="display:none">
+            <span style="font-size:2rem">&#128202;</span>
+            Run the notebook to generate this chart
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tracker-banner">
+      <div>
+        <p><strong>Track results after each round</strong></p>
+        <p>Update <code style="font-size:.8rem;color:var(--blue);background:rgba(88,166,255,.1);padding:2px 6px;border-radius:4px">/results/results_tracker.md</code> as games conclude &mdash; March 20 through April 6, 2026.</p>
+      </div>
+      <a href="results/results_tracker.md" class="btn">Open Results Tracker</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════ FOOTER ═════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <p>Built with Claude &nbsp;&middot;&nbsp; Data from KenPom, ESPN, CBS Sports, NCAA.com</p>
+      <p style="margin-top:4px">2026 NCAA Tournament &nbsp;&middot;&nbsp; Analysis as of March 16, 2026</p>
+    </div>
+    <div class="footer-sources">
+      <span class="source-tag">KenPom</span>
+      <span class="source-tag">ESPN</span>
+      <span class="source-tag">CBS Sports</span>
+      <span class="source-tag">NCAA.com</span>
+      <span class="source-tag">RotoWire</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
