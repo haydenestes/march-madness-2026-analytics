@@ -754,6 +754,121 @@
       white-space: nowrap;
     }
 
+    /* ── Vegas Lines section ── */
+    .vegas-intro {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .vegas-intro h2 { margin-bottom: 0; }
+
+    .vegas-summary-bar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .vegas-stat {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 20px;
+      flex: 1;
+      min-width: 150px;
+    }
+    .vegas-stat-val {
+      font-size: 1.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .vegas-stat-val.green { color: var(--green); }
+    .vegas-stat-val.gold  { color: var(--gold); }
+    .vegas-stat-val.red   { color: var(--red); }
+    .vegas-stat-lbl { font-size: .76rem; color: var(--text-muted); margin-top: 3px; }
+
+    .vegas-region-label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 9px 16px;
+      background: var(--bg-card2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Row color coding */
+    tbody tr.vrow-green { background: rgba(63,185,80,.06); }
+    tbody tr.vrow-green:hover { background: rgba(63,185,80,.11); }
+    tbody tr.vrow-gold  { background: rgba(245,166,35,.07); }
+    tbody tr.vrow-gold:hover  { background: rgba(245,166,35,.13); }
+    tbody tr.vrow-red   { background: rgba(248,81,73,.07); }
+    tbody tr.vrow-red:hover   { background: rgba(248,81,73,.13); }
+    tbody tr.vrow-yellow { background: rgba(227,169,70,.06); }
+    tbody tr.vrow-yellow:hover { background: rgba(227,169,70,.12); }
+
+    .vstatus {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .vstatus-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .vstatus.vs-confirmed .vstatus-dot { background: var(--green); }
+    .vstatus.vs-confirmed              { color: var(--green); }
+    .vstatus.vs-upset     .vstatus-dot { background: var(--gold); }
+    .vstatus.vs-upset                  { color: var(--gold); }
+    .vstatus.vs-diverge   .vstatus-dot { background: var(--red); }
+    .vstatus.vs-diverge                { color: var(--red); }
+    .vstatus.vs-flag      .vstatus-dot { background: var(--orange); }
+    .vstatus.vs-flag                   { color: var(--orange); }
+    .vstatus.vs-pending   .vstatus-dot { background: var(--text-dim); }
+    .vstatus.vs-pending                { color: var(--text-dim); }
+
+    .vspread {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: .82rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .vegas-diverg-box {
+      background: rgba(248,81,73,.07);
+      border: 1px solid rgba(248,81,73,.3);
+      border-left: 3px solid var(--red);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      margin-top: 28px;
+    }
+    .vegas-diverg-box .vdb-label {
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .vegas-diverg-box .vdb-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .vegas-diverg-box p {
+      font-size: .85rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
     .upset-hit-rate strong { color: var(--blue); }
 
     /* ── Roster table specifics ── */
@@ -1260,6 +1375,7 @@
       <li><a href="#optimizer">Optimizer</a></li>
       <li><a href="#final-four">Final Four</a></li>
       <li><a href="#upsets">Upsets</a></li>
+      <li><a href="#vegas">Vegas Lines</a></li>
       <li><a href="#roster">Roster</a></li>
       <li><a href="#charts">Charts</a></li>
     </ul>
@@ -2680,6 +2796,339 @@
         </tbody>
       </table>
     </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ VEGAS LINES ═════════════════════════ -->
+<section id="vegas">
+  <div class="container">
+
+    <div class="vegas-intro">
+      <div>
+        <div class="section-label">Market Validation</div>
+        <h2>Vegas Lines vs. Our Picks</h2>
+      </div>
+    </div>
+
+    <!-- Summary stats -->
+    <div class="vegas-summary-bar">
+      <div class="vegas-stat">
+        <div class="vegas-stat-val green">29 / 32</div>
+        <div class="vegas-stat-lbl">Lines match our picks</div>
+      </div>
+      <div class="vegas-stat">
+        <div class="vegas-stat-val gold">4 / 5</div>
+        <div class="vegas-stat-lbl">Upset picks confirmed by Vegas as favorites or near pick-ems</div>
+      </div>
+      <div class="vegas-stat">
+        <div class="vegas-stat-val red">1</div>
+        <div class="vegas-stat-lbl">Key divergence — VCU vs UNC</div>
+      </div>
+    </div>
+
+    <!-- ── EAST ── -->
+    <div class="table-wrap" style="margin-bottom:20px">
+      <div class="vegas-region-label">East Region</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Matchup</th>
+            <th>Vegas Spread</th>
+            <th>Our Pick</th>
+            <th>Status</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="vrow-green">
+            <td class="td-team">Duke vs Opponent</td>
+            <td class="vspread">Duke -28.5</td>
+            <td>Duke</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted"></td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Ohio State vs Opponent</td>
+            <td class="vspread">Ohio State -2.5</td>
+            <td>Ohio State</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted">Tight line</td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">St. John's vs Opponent</td>
+            <td class="vspread">St. John's -9.5</td>
+            <td>St. John's</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted"></td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Kansas vs Opponent</td>
+            <td class="vspread">Kansas -14.5</td>
+            <td>Kansas</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted">Sets up Sweet 16 vs injured Duke</td>
+          </tr>
+          <tr class="vrow-yellow">
+            <td class="td-team">Louisville vs South Florida</td>
+            <td class="vspread">Louisville -5.5</td>
+            <td>Louisville</td>
+            <td><span class="vstatus vs-flag"><span class="vstatus-dot"></span>FLAG</span></td>
+            <td class="td-muted">Only -5.5 without Brown Jr. — South Florida on 11-game win streak</td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Michigan State vs NDSU</td>
+            <td class="vspread">Michigan State -16.5</td>
+            <td>Michigan State</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted"></td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">UCLA vs UCF</td>
+            <td class="vspread">UCLA -5.5</td>
+            <td>UCLA</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted"></td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">UConn vs Furman</td>
+            <td class="vspread">UConn -20.5</td>
+            <td>UConn</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── WEST ── -->
+    <div class="table-wrap" style="margin-bottom:20px">
+      <div class="vegas-region-label">West Region</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Matchup</th>
+            <th>Vegas Spread</th>
+            <th>Our Pick</th>
+            <th>Status</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="vrow-green">
+            <td class="td-team">Arizona vs Long Island</td>
+            <td class="vspread">Arizona -30.5</td>
+            <td>Arizona</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted">Champion pick</td>
+          </tr>
+          <tr class="vrow-gold">
+            <td class="td-team">Utah State vs Villanova</td>
+            <td class="vspread">Utah State -1.5</td>
+            <td>Utah State</td>
+            <td><span class="vstatus vs-upset"><span class="vstatus-dot"></span>UPSET CONFIRMED</span></td>
+            <td class="td-muted">Vegas agrees — Villanova underdog</td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Wisconsin vs High Point</td>
+            <td class="vspread">Wisconsin -10</td>
+            <td>Wisconsin</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted"></td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Arkansas vs Hawaii</td>
+            <td class="vspread">Arkansas -15.5</td>
+            <td>Arkansas</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted"></td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">BYU vs Texas</td>
+            <td class="vspread">BYU -2.5</td>
+            <td>BYU</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted">Texas won First Four over NC State</td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Gonzaga vs Kennesaw St</td>
+            <td class="vspread">Gonzaga -21.5</td>
+            <td>Gonzaga</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted"></td>
+          </tr>
+          <tr class="vrow-gold">
+            <td class="td-team">Missouri vs Miami FL</td>
+            <td class="vspread">Missouri -2</td>
+            <td>Missouri</td>
+            <td><span class="vstatus vs-upset"><span class="vstatus-dot"></span>UPSET CONFIRMED</span></td>
+            <td class="td-muted">Home market validated</td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Purdue vs Queens</td>
+            <td class="vspread">Purdue -25.5</td>
+            <td>Purdue</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── MIDWEST ── -->
+    <div class="table-wrap" style="margin-bottom:20px">
+      <div class="vegas-region-label">Midwest Region</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Matchup</th>
+            <th>Vegas Spread</th>
+            <th>Our Pick</th>
+            <th>Status</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="vrow-green">
+            <td class="td-team">Michigan vs Opponent</td>
+            <td class="vspread">Michigan -31</td>
+            <td>Michigan</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted">Largest spread in bracket</td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Georgia vs Saint Louis</td>
+            <td class="vspread">Georgia -2</td>
+            <td>Georgia</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted">Tight — Saint Louis T-Rank #43</td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Texas Tech vs Akron</td>
+            <td class="vspread">Texas Tech -8</td>
+            <td>Texas Tech</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted">Akron cover value noted</td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Alabama vs Opponent</td>
+            <td class="vspread">Alabama -11.5</td>
+            <td>Alabama</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted">Down from -12.5 with Holloway suspended</td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Tennessee vs Opponent</td>
+            <td class="vspread">TBD</td>
+            <td>Tennessee</td>
+            <td><span class="vstatus vs-pending"><span class="vstatus-dot"></span>PENDING</span></td>
+            <td class="td-muted">First Four</td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Virginia vs Opponent</td>
+            <td class="vspread">Virginia -18.5</td>
+            <td>Virginia</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted"></td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Kentucky vs Opponent</td>
+            <td class="vspread">Kentucky -3</td>
+            <td>Kentucky</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted">Tight — confirms competitive 7/10 matchup</td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Iowa State vs Opponent</td>
+            <td class="vspread">Iowa State -24.5</td>
+            <td>Iowa State</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── SOUTH ── -->
+    <div class="table-wrap" style="margin-bottom:28px">
+      <div class="vegas-region-label">South Region</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Matchup</th>
+            <th>Vegas Spread</th>
+            <th>Our Pick</th>
+            <th>Status</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="vrow-green">
+            <td class="td-team">Florida vs Opponent</td>
+            <td class="vspread">TBD</td>
+            <td>Florida</td>
+            <td><span class="vstatus vs-pending"><span class="vstatus-dot"></span>PENDING</span></td>
+            <td class="td-muted">First Four</td>
+          </tr>
+          <tr class="vrow-gold">
+            <td class="td-team">Iowa vs Clemson</td>
+            <td class="vspread">Iowa -2</td>
+            <td>Iowa</td>
+            <td><span class="vstatus vs-upset"><span class="vstatus-dot"></span>UPSET CONFIRMED</span></td>
+            <td class="td-muted">Strongest validation — Vegas agrees with our 9-over-8 call</td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Vanderbilt vs Opponent</td>
+            <td class="vspread">Vanderbilt -11.5</td>
+            <td>Vanderbilt</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted">Confirms massively underseeded</td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Nebraska vs Opponent</td>
+            <td class="vspread">Nebraska -13</td>
+            <td>Nebraska</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted"></td>
+          </tr>
+          <tr class="vrow-red">
+            <td class="td-team">VCU vs UNC</td>
+            <td class="vspread">UNC -2.5</td>
+            <td>VCU</td>
+            <td><span class="vstatus vs-diverge"><span class="vstatus-dot"></span>DIVERGENCE</span></td>
+            <td class="td-muted">We pick VCU — Vegas favors UNC — EvanMiya injury-adjusted model disagrees with market</td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Illinois vs Opponent</td>
+            <td class="vspread">Illinois -24.5</td>
+            <td>Illinois</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted"></td>
+          </tr>
+          <tr class="vrow-gold">
+            <td class="td-team">Texas A&amp;M vs Saint Mary's</td>
+            <td class="vspread">Texas A&amp;M -3</td>
+            <td>Texas A&amp;M</td>
+            <td><span class="vstatus vs-upset"><span class="vstatus-dot"></span>UPSET CONFIRMED</span></td>
+            <td class="td-muted">Vegas already pricing Saint Mary's cold form</td>
+          </tr>
+          <tr class="vrow-green">
+            <td class="td-team">Houston vs Opponent</td>
+            <td class="vspread">Houston -23.5</td>
+            <td>Houston</td>
+            <td><span class="vstatus vs-confirmed"><span class="vstatus-dot"></span>CONFIRMED</span></td>
+            <td class="td-muted"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- VCU divergence callout -->
+    <div class="vegas-diverg-box">
+      <div class="vdb-label">&#9888; Sharp Divergence — VCU vs UNC</div>
+      <div class="vdb-heading">We side with analytics over the market here.</div>
+      <p>This is our sharpest disagreement with the Vegas market. Vegas prices in UNC's brand name despite Caleb Wilson being out for the season. EvanMiya's injury-adjusted model explicitly favors VCU. We side with the analytics over the market here.</p>
+    </div>
+
   </div>
 </section>
 
