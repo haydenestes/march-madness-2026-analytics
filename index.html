@@ -1025,6 +1025,23 @@
       margin-left: 3px; vertical-align: middle;
       letter-spacing: .03em;
     }
+    .br-spread {
+      font-size: 9px; font-weight: 700;
+      border-radius: 3px; padding: 1px 4px;
+      margin-left: 4px; vertical-align: middle;
+      letter-spacing: .02em; white-space: nowrap;
+    }
+    .br-spread-green  { background: #0d2b0d; color: #3fb950; border: 1px solid #1e4d1e; }
+    .br-spread-gold   { background: #2b2000; color: #f5a623; border: 1px solid #4d3800; }
+    .br-spread-orange { background: #2b1000; color: #f97316; border: 1px solid #4d1c00; }
+    .br-spread-pick   { background: #0d0d2b; color: #818cf8; border: 1px solid #1e1e4d; font-style: italic; }
+    .br-spread-legend {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      padding: 10px 16px; margin-top: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; font-size: 11px; color: var(--text-dim);
+    }
+    .br-spread-legend-lbl { font-weight: 700; color: var(--text); margin-right: 4px; }
     /* column headers */
     .br-cols-wrap { display: flex; gap: 3px; margin-bottom: 6px; }
     .br-col-hdr {
@@ -1473,22 +1490,22 @@
 
           <!-- R64 LEFT -->
           <div class="br-col br-col-r64">
-            <div class="br-game br-game-r64"><div class="br-team winner">1 Duke</div><div class="br-team loser">16 Siena</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">8 Ohio St</div><div class="br-team loser">9 TCU</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">5 St. John's</div><div class="br-team loser">12 N Iowa</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">4 Kansas</div><div class="br-team loser">13 Cal Bap.</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">6 Louisville</div><div class="br-team loser">11 S Florida</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">3 Mich St</div><div class="br-team loser">14 NDSU</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">7 UCLA</div><div class="br-team loser">10 UCF</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">2 UConn</div><div class="br-team loser">15 Furman</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">1 Arizona</div><div class="br-team loser">16 L. Island</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">9 Utah St <span class="br-upset">UP</span></div><div class="br-team loser">8 Villanova</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">5 Wisconsin</div><div class="br-team loser">12 High Pt</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">4 Arkansas</div><div class="br-team loser">13 Hawaii</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">6 BYU</div><div class="br-team loser">11 Texas</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">3 Gonzaga</div><div class="br-team loser">14 Ken. St</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">10 Missouri <span class="br-upset">UP</span></div><div class="br-team loser">7 Miami FL</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">2 Purdue</div><div class="br-team loser">15 Queens</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">1 Duke <span class="br-spread br-spread-green">-28.5</span></div><div class="br-team loser">16 Siena</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">8 Ohio St <span class="br-spread br-spread-orange">-1.5</span></div><div class="br-team loser">9 TCU</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">5 St. John's <span class="br-spread br-spread-gold">-7</span></div><div class="br-team loser">12 N Iowa</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">4 Kansas <span class="br-spread br-spread-green">-20</span></div><div class="br-team loser">13 Cal Bap.</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">6 Louisville <span class="br-spread br-spread-gold">-8.5</span></div><div class="br-team loser">11 S Florida</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">3 Mich St <span class="br-spread br-spread-green">-16.5</span></div><div class="br-team loser">14 NDSU</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">7 UCLA <span class="br-spread br-spread-orange">-3.5</span></div><div class="br-team loser">10 UCF</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">2 UConn <span class="br-spread br-spread-green">-23</span></div><div class="br-team loser">15 Furman</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">1 Arizona <span class="br-spread br-spread-green">-32</span></div><div class="br-team loser">16 L. Island</div></div>
+            <div class="br-game br-game-r64"><div class="br-team loser">8 Villanova <span class="br-spread br-spread-orange">-1 fav</span></div><div class="br-team winner">9 Utah St <span class="br-upset">UP</span> <span class="br-spread br-spread-pick">our pick</span></div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">5 Wisconsin <span class="br-spread br-spread-gold">-13.5</span></div><div class="br-team loser">12 High Pt</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">4 Arkansas <span class="br-spread br-spread-green">-18</span></div><div class="br-team loser">13 Hawaii</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">6 BYU <span class="br-spread br-spread-orange">-2.5</span></div><div class="br-team loser">11 Texas</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">3 Gonzaga <span class="br-spread br-spread-green">-17</span></div><div class="br-team loser">14 Ken. St</div></div>
+            <div class="br-game br-game-r64"><div class="br-team loser">7 Miami FL <span class="br-spread br-spread-orange">-1 fav</span></div><div class="br-team winner">10 Missouri <span class="br-upset">UP</span> <span class="br-spread br-spread-pick">our pick</span></div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">2 Purdue <span class="br-spread br-spread-green">-24.5</span></div><div class="br-team loser">15 Queens</div></div>
           </div>
 
           <!-- R32 LEFT -->
@@ -1570,22 +1587,22 @@
 
           <!-- R64 RIGHT -->
           <div class="br-col br-col-r64">
-            <div class="br-game br-game-r64"><div class="br-team winner">1 Florida</div><div class="br-team loser">16 Leh/PV</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">9 Iowa <span class="br-upset">UP</span></div><div class="br-team loser">8 Clemson</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">5 Vanderbilt</div><div class="br-team loser">12 McNeese</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">4 Nebraska</div><div class="br-team loser">13 Troy</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">6 UNC</div><div class="br-team loser">11 VCU</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">3 Illinois</div><div class="br-team loser">14 Penn</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">10 Tex A&amp;M <span class="br-upset">UP</span></div><div class="br-team loser">7 St. Mary's</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">2 Houston</div><div class="br-team loser">15 Idaho</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">1 Michigan</div><div class="br-team loser">16 H/UMBC</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">8 Georgia</div><div class="br-team loser">9 St. Louis</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">4 Alabama</div><div class="br-team loser">13 Hofstra</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">5 Texas Tech</div><div class="br-team loser">12 Akron</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">3 Virginia</div><div class="br-team loser">14 Wright St</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">6 Tennessee</div><div class="br-team loser">11 SMU/MiaOH</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">2 Iowa St</div><div class="br-team loser">15 Tenn St</div></div>
-            <div class="br-game br-game-r64"><div class="br-team winner">7 Kentucky</div><div class="br-team loser">10 S. Clara</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">1 Florida <span class="br-spread br-spread-green">-30</span></div><div class="br-team loser">16 Leh/PV</div></div>
+            <div class="br-game br-game-r64"><div class="br-team loser">8 Clemson <span class="br-spread br-spread-orange">-2 fav</span></div><div class="br-team winner">9 Iowa <span class="br-upset">UP</span> <span class="br-spread br-spread-pick">our pick</span></div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">5 Vanderbilt <span class="br-spread br-spread-gold">-8.5</span></div><div class="br-team loser">12 McNeese</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">4 Nebraska <span class="br-spread br-spread-green">-19.5</span></div><div class="br-team loser">13 Troy</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">6 UNC <span class="br-spread br-spread-gold">-5.5</span></div><div class="br-team loser">11 VCU <span class="br-spread br-spread-pick">our pick</span></div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">3 Illinois <span class="br-spread br-spread-green">-16.5</span></div><div class="br-team loser">14 Penn</div></div>
+            <div class="br-game br-game-r64"><div class="br-team loser">7 St. Mary's <span class="br-spread br-spread-orange">-1 fav</span></div><div class="br-team winner">10 Tex A&amp;M <span class="br-upset">UP</span> <span class="br-spread br-spread-pick">our pick</span></div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">2 Houston <span class="br-spread br-spread-green">-25.5</span></div><div class="br-team loser">15 Idaho</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">1 Michigan <span class="br-spread br-spread-green">-32.5</span></div><div class="br-team loser">16 H/UMBC</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">8 Georgia <span class="br-spread br-spread-orange">-2.5</span></div><div class="br-team loser">9 St. Louis</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">4 Alabama <span class="br-spread br-spread-green">-20.5</span></div><div class="br-team loser">13 Hofstra</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">5 Texas Tech <span class="br-spread br-spread-gold">-12.5</span></div><div class="br-team loser">12 Akron</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">3 Virginia <span class="br-spread br-spread-green">-15</span></div><div class="br-team loser">14 Wright St</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">6 Tennessee <span class="br-spread br-spread-gold">-6.5</span></div><div class="br-team loser">11 SMU/MiaOH</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">2 Iowa St <span class="br-spread br-spread-green">-24</span></div><div class="br-team loser">15 Tenn St</div></div>
+            <div class="br-game br-game-r64"><div class="br-team winner">7 Kentucky <span class="br-spread br-spread-gold">-5.5</span></div><div class="br-team loser">10 S. Clara</div></div>
           </div>
 
         </div><!-- /br-rounds-right -->
@@ -1597,6 +1614,17 @@
         </div>
 
       </div><!-- /bracket-wrap -->
+
+      <!-- Vegas Spread Legend -->
+      <div class="br-spread-legend">
+        <span class="br-spread-legend-lbl">Vegas Spread Key:</span>
+        <span class="br-spread br-spread-green">-15+ (Lock)</span>
+        <span class="br-spread br-spread-gold">-6 to -14 (Solid fav)</span>
+        <span class="br-spread br-spread-orange">-1 to -5.5 (Toss-up)</span>
+        <span class="br-spread br-spread-pick">our pick</span>
+        <span style="font-size:10px;color:var(--text-dim);margin-left:4px;">— spread shown on favorite · <em>our pick</em> = upset call vs Vegas line</span>
+      </div>
+
     </div><!-- /bracket-scroll -->
   </div>
 </section>
