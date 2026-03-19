@@ -1373,7 +1373,7 @@
     </div>
 
     <div class="inj-meta">
-      <div class="inj-timestamp">Last updated: March 19, 2026 — Round of 64 underway</div>
+      <div class="inj-timestamp">Last updated: March 19, 2026 — R64 Thursday afternoon complete; evening games in progress</div>
       <button class="inj-dismiss" id="inj-dismiss" aria-label="Dismiss injury alert">×</button>
     </div>
 
@@ -1947,12 +1947,14 @@
   // Seeded results — updated by Finn via git push
   // Format: { gameId: { correct: bool, score: 'W score - L score', notes: '' } }
   var SEED_RESULTS = {
-    // ── First Four (March 17-18) ──
-    // Howard def. UMBC → advances to face Michigan (R64)
-    // Texas def. NC State → advances to face BYU (R64)
-    // Miami (OH) def. SMU 89-79 → advances to face Tennessee (R64)
-    // Prairie View A&M advanced → faces Florida (R64)
-    // No GAMES entries for First Four — those are the play-in seedings
+    // ── Round of 64 · Thursday March 19 (afternoon, confirmed) ──
+    'r64-e1': { correct: true,  score: 'Duke 71–65',       notes: 'Duke survived near-upset by Siena' },
+    'r64-e2': { correct: false, score: 'TCU 66–64',        notes: 'TCU edges Ohio St in tight 8-9 game' },
+    'r64-e5': { correct: true,  score: 'Louisville 83–79', notes: 'Louisville holds off South Florida' },
+    'r64-e6': { correct: true,  score: 'Michigan St 85–60',notes: 'Cooper 20 pts, MSU rolls NDSU' },
+    'r64-w3': { correct: false, score: 'High Point 83–82', notes: '🚨 UPSET — 12 over 5! High Point stuns Wisconsin at the buzzer' },
+    'r64-w4': { correct: true,  score: 'Arkansas 97–78',   notes: 'Acuff 24, Thomas 21 — Hogs cruise' },
+    'r64-s4': { correct: true,  score: 'Nebraska 76–47',   notes: 'Nebraska dominates Troy' },
   };
 
   var state = loadState();
