@@ -1373,7 +1373,7 @@
     </div>
 
     <div class="inj-meta">
-      <div class="inj-timestamp">Last updated: March 18, 2026 — First round begins tomorrow</div>
+      <div class="inj-timestamp">Last updated: March 19, 2026 — Round of 64 underway</div>
       <button class="inj-dismiss" id="inj-dismiss" aria-label="Dismiss injury alert">×</button>
     </div>
 
@@ -1944,7 +1944,22 @@
     fillAdminDropdown(s);
   }
 
+  // Seeded results — updated by Finn via git push
+  // Format: { gameId: { correct: bool, score: 'W score - L score', notes: '' } }
+  var SEED_RESULTS = {
+    // ── First Four (March 17-18) ──
+    // Howard def. UMBC → advances to face Michigan (R64)
+    // Texas def. NC State → advances to face BYU (R64)
+    // Miami (OH) def. SMU 89-79 → advances to face Tennessee (R64)
+    // Prairie View A&M advanced → faces Florida (R64)
+    // No GAMES entries for First Four — those are the play-in seedings
+  };
+
   var state = loadState();
+  // Merge seed results (seed fills gaps, localStorage overrides)
+  Object.keys(SEED_RESULTS).forEach(function(k) {
+    if (!state[k]) state[k] = SEED_RESULTS[k];
+  });
   renderAll(state);
 
   // Admin toggle via double-click on h2
